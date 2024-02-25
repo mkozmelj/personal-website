@@ -15,7 +15,7 @@ export function Projects() {
     },
     {
       imageUrl: "/tenistrje.png",
-      title: "Tenis league Trje",
+      title: "Tenis liga Trje",
       year: 2023,
       tags: ["React", "Google Spreadsheet API", "CI/CD"],
       link: "https:/tenisligatrje.si",
@@ -25,7 +25,7 @@ export function Projects() {
     {
       imageUrl: "/skz.png",
       title: "Študentski klub Žalec",
-      year: 2022,
+      year: 2020,
       tags: ["Wordpress", "PDF Forms"],
       link: "https://sk-zalec.org",
       summary:
