@@ -3,7 +3,7 @@ export function Contact() {
     <div className="mt-10 px-4 lg:p-0 flex flex-col ">
       <div className="font-thin text-sm text-center px-8 lg:px-4">
         If you find my profile interesting and want to get in touch with me, do
-        not hesitate, click on the button bellow and let's get to know each
+        not hesitate, click on the button bellow and let&apos;s get to know each
         other!
       </div>
       <a
