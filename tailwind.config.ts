@@ -30,7 +30,7 @@ const config: Config = {
             muted: "#adadad",
             black: {
               100: "#000",
-              200: "#343434",
+              200: "#101010",
             },
           }, // dark theme colors
         },
