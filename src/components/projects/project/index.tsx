@@ -1,5 +1,6 @@
 import { IProject } from "@/common/types";
 import { Tag } from "@/components/common/tag";
+import Image from "next/image";
 
 interface IProps {
   project: IProject;
@@ -12,7 +13,13 @@ export function Project({ project }: IProps) {
       onClick={() => window.open(project.link, "_blank")}
     >
       <div className="flex flex-col lg:flex-row gap-4">
-        <img src={project.imageUrl} className="w-full lg:w-1/4 h-fit" />
+        <Image
+          alt={project.title}
+          src={project.imageUrl}
+          width={100}
+          height={100}
+          className="w-full lg:w-1/4 h-fit"
+        />
         <div>
           <h3>
             {project.title} (

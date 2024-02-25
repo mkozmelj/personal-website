@@ -48,7 +48,7 @@ export default function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [sections]);
-  console.log(activeSection);
+
   return (
     <div
       className={`relative flex flex-col lg:flex-row justify-between lg:p-24 max-w-7xl mx-auto ${montserrat.className}`}
