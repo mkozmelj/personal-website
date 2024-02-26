@@ -13,7 +13,7 @@ export function Navbar({ sections, activeSection, setActiveSection }: IProps) {
         <a
           key={section.id}
           href={`#${section.id}`}
-          className={`flex flex-row gap-4 items-center ${
+          className={`flex flex-row gap-4 items-center w-max ${
             activeSection === section.id ? "text-primary font-bold" : ""
           }`}
           onClick={() => setActiveSection(section.id)}
