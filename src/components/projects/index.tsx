@@ -35,7 +35,7 @@ export function Projects() {
       imageUrl: "/spiritbra.png",
       title: "Spiritbra",
       year: 2019,
-      tags: ["Wordpress", "Wocommerce"],
+      tags: ["Wordpress", "Woocommerce"],
       link: "https://spiritbra.si",
       summary: "E-shop for woman apparel - sport bras and bags.",
     },
