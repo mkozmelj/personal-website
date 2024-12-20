@@ -2,7 +2,7 @@ import { Title } from "../common/title";
 
 export function Summary() {
   return (
-    <div className="font-thin lg:pt-4 lg:px-4" id="summary">
+    <div className="font-thin" id="summary">
       <Title title="Summary" />
       <div className="mb-2 px-8 lg:px-4">
         Experienced in crafting dynamic user interfaces, I specialize in React,
