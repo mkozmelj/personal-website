@@ -1,7 +1,7 @@
 export function Social() {
   return (
     <div>
-      <ul className="ml-1 mt-8 flex items-center" aria-label="Social media">
+      <ul className="ml-1 mt-4 flex items-center" aria-label="Social media">
         <li className="mr-5 text-xs shrink-0">
           <a
             className="block"

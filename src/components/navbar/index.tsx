@@ -8,7 +8,7 @@ interface IProps {
 
 export function Navbar({ sections, activeSection, setActiveSection }: IProps) {
   return (
-    <div className="hidden lg:flex flex-col my-10 gap-2">
+    <div className="hidden lg:flex flex-col my-4 gap-2">
       {sections.map((section) => (
         <a
           key={section.id}
