@@ -12,6 +12,22 @@ export function Projects({ showedProjects }: Readonly<Props>) {
   const projects: IProject[] = useMemo(
     () => [
       {
+        imageUrl: "/6racecraft.webp",
+        title: "6RaceCraft",
+        year: 2025,
+        tags: ["Next.js", "Resend", "Sanity", "Claude AI", "vibe coding"],
+        link: "https://6racecraft.com",
+        summary: "Website for a cycling coach with a blog.",
+      },
+      {
+        imageUrl: "/tk-trje.webp",
+        title: "Tenis klub Trje 2000",
+        year: 2025,
+        tags: ["Wordpress", "ContactForm", "UPN generation"],
+        link: "https://tk-trje.si",
+        summary: "Website for a local tennis club.",
+      },
+      {
         imageUrl: "/estetika-verdnik.webp",
         title: "Estetika Verdnik",
         year: 2024,
