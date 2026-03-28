@@ -2,26 +2,32 @@ import { Title } from "../common/title";
 
 export function Summary() {
   return (
-    <div className="font-thin" id="summary">
+    <section className="font-thin" id="summary" aria-label="Summary">
       <Title title="Summary" />
       <div className="mb-2 px-8 lg:px-4">
-        Experienced in crafting dynamic user interfaces, I specialize in React,
-        but also fluent in Angular and Nest.js. From single-page applications to
-        intricate full-stack solutions, I stay on the cutting edge of technology
-        to deliver modern digital experiences.
+        I build dynamic interfaces and full-stack web apps with Next.js and
+        TypeScript, on the React stack. Angular and Nest.js are part of my
+        toolkit when a codebase or team needs them. I aim for maintainable code
+        and polished user experiences that hold up over time.
       </div>
       <div className="mb-2 px-8 lg:px-4">
-        Starting my carrer in a 10-person company and then move to a corporation
-        of 4,000+, I&apos;ve thrived in diverse team environments. I excel in
-        fostering efficient workflows and impactful results. My adaptability
-        shines in both small, close-knit teams and large-scale projects.
+        I&apos;m enthusiastic about using AI in professional settings—coding
+        assistants, automation, and generative workflows—to speed up development
+        and improve how teams and companies work. I want to help organizations
+        adopt these tools thoughtfully: faster delivery and leaner processes,
+        with quality and human judgment still in the loop.
       </div>
       <div className="mb-2 px-8 lg:px-4">
-        Beyond coding, I&apos;m fueled by sports and outdoor activities. Whether
-        on the football and badminton court, or cycling and hiking trails, these
-        pursuits not only invigorate my spirit but also contribute to a balanced
-        and creative approach to both work and life.
+        My career began in a ten-person company before moving to a corporation of
+        4,000+. I&apos;ve thrived in both small, close-knit teams and large,
+        complex programs, and I care about clear communication, efficient
+        workflows, and outcomes that matter.
       </div>
-    </div>
+      <div className="mb-2 px-8 lg:px-4">
+        Beyond coding, sports and the outdoors keep me grounded—football,
+        badminton, cycling, and hiking give me energy and balance, and they feed
+        a creative, steady approach to work and life.
+      </div>
+    </section>
   );
 }

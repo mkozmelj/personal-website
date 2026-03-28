@@ -1,0 +1,17 @@
+{
+  "name": "Martin Kozmelj",
+  "short_name": "MK",
+  "description": "Senior frontend developer — portfolio and projects.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#101010",
+  "theme_color": "#101010",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

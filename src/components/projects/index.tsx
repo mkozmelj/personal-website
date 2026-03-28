@@ -6,9 +6,11 @@ import Link from "next/link";
 
 type Props = {
   showedProjects?: number;
+  /** When true, section title is an h1 (standalone /projects page) */
+  pageHeading?: boolean;
 };
 
-export function Projects({ showedProjects }: Readonly<Props>) {
+export function Projects({ showedProjects, pageHeading = false }: Readonly<Props>) {
   const projects: IProject[] = useMemo(
     () => [
       {
@@ -89,8 +91,8 @@ export function Projects({ showedProjects }: Readonly<Props>) {
   );
 
   return (
-    <div className="mt-2 flex flex-col" id="projects">
-      <Title title="Projects" />
+    <section className="mt-2 flex flex-col" id="projects" aria-label="Projects">
+      <Title title="Projects" as={pageHeading ? "h1" : "h2"} />
       <div className="px-4 lg:p-0">
         {filteredProjects.map((project) => (
           <Project project={project} key={project.title} />
@@ -104,6 +106,6 @@ export function Projects({ showedProjects }: Readonly<Props>) {
           Show more
         </Link>
       )}
-    </div>
+    </section>
   );
 }

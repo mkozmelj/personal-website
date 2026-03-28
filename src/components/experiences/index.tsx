@@ -6,9 +6,14 @@ import Link from "next/link";
 
 type Props = {
   showedExperiences?: number;
+  /** When true, section title is an h1 (standalone /experiences page) */
+  pageHeading?: boolean;
 };
 
-export function Experiences({ showedExperiences }: Readonly<Props>) {
+export function Experiences({
+  showedExperiences,
+  pageHeading = false,
+}: Readonly<Props>) {
   const experiences: IExperience[] = useMemo(
     () => [
       {
@@ -28,6 +33,24 @@ export function Experiences({ showedExperiences }: Readonly<Props>) {
           "Gitlab",
           "Angular",
           "Scrum",
+        ],
+      },
+      {
+        position: "Founder",
+        company: "Računalniške storitve in svetovanje, Martin Kozmelj s.p.",
+        companyUrl: "https://kozmelj.si",
+        start: 2022,
+        summary:
+          "In 2022 I started working as a freelancer. I worked on different projects for different clients. From simple websites to more complex full-stack applications.",
+        tags: [
+          "Wordpress",
+          "Typescript",
+          "React",
+          "Next.js",
+          "Tailwind CSS",
+          "Framer Motion",
+          "Sanity",
+          "Vercel",
         ],
       },
       {
@@ -108,8 +131,12 @@ export function Experiences({ showedExperiences }: Readonly<Props>) {
   );
 
   return (
-    <div className="mt-2 flex flex-col" id="experiences">
-      <Title title="Experiences" />
+    <section
+      className="mt-2 flex flex-col"
+      id="experiences"
+      aria-label="Experiences"
+    >
+      <Title title="Experiences" as={pageHeading ? "h1" : "h2"} />
       <div className="px-4 lg:p-0 mb-2">
         {filteredExperiences.map((experience) => (
           <Experience
@@ -126,6 +153,6 @@ export function Experiences({ showedExperiences }: Readonly<Props>) {
           Show more
         </Link>
       )}
-    </div>
+    </section>
   );
 }

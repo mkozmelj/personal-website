@@ -7,31 +7,38 @@ interface IProps {
 }
 
 export function Project({ project }: IProps) {
+  const headingId = `project-heading-${project.title.replace(/\s+/g, "-").toLowerCase()}`;
+
   return (
-    <div
-      className="mb-5 w-full hover:bg-primary/10 p-4 rounded-md hover:ring-1  hover:ring-inset  hover:ring-primary hover:cursor-pointer"
-      onClick={() => window.open(project.link, "_blank")}
-    >
-      <div className="flex flex-col lg:flex-row gap-4">
+    <article className="relative mb-5 w-full rounded-md p-4 hover:bg-primary/10 hover:ring-1 hover:ring-inset hover:ring-primary">
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute inset-0 z-0 rounded-md"
+        aria-labelledby={headingId}
+      />
+      <div className="relative z-10 flex flex-col gap-4 lg:flex-row pointer-events-none">
         <Image
           alt={project.title}
           src={project.imageUrl}
           width={100}
           height={100}
-          className="w-full lg:w-1/4 h-fit"
+          sizes="(min-width: 1024px) 25vw, 100vw"
+          className="pointer-events-none h-fit w-full lg:w-1/4"
         />
         <div>
-          <h3>
+          <h3 id={headingId} className="text-inherit">
             {project.title} (
             <span className="font-extralight">{project.year}</span>)
           </h3>
           <p className="mt-1 font-thin text-sm">{project.summary}</p>
           {project.githubLink && (
             <a
-              className="mt-1 text-xs hover:underline hover:text-primary"
+              className="pointer-events-auto relative z-20 mt-1 text-xs hover:text-primary hover:underline"
               href={project.githubLink}
-              onClick={(e) => e.stopPropagation()}
               target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>
@@ -43,6 +50,6 @@ export function Project({ project }: IProps) {
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

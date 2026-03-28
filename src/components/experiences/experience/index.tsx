@@ -7,15 +7,17 @@ interface IProps {
 
 export function Experience({ experience }: IProps) {
   return (
-    <div
-      className="w-full hover:bg-primary/10 p-4 rounded-md hover:ring-1  hover:ring-inset  hover:ring-primary hover:cursor-pointer"
-      onClick={() => window.open(experience.companyUrl, "_blank")}
+    <a
+      href={experience.companyUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block w-full hover:bg-primary/10 p-4 rounded-md hover:ring-1 hover:ring-inset hover:ring-primary hover:cursor-pointer text-inherit no-underline"
     >
       <div className="flex md:space-x-4 items-center flex-col md:flex-row">
         <p className="text-xs text-muted w-max">
           {experience.start} - {experience.end ?? "PRESENT"}
         </p>
-        <h3>
+        <h3 className="text-inherit">
           {experience.position} · {experience.company}
         </h3>
       </div>
@@ -25,6 +27,6 @@ export function Experience({ experience }: IProps) {
           <Tag tag={tag} key={tag} />
         ))}
       </div>
-    </div>
+    </a>
   );
 }
