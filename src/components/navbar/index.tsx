@@ -8,24 +8,28 @@ interface IProps {
 
 export function Navbar({ sections, activeSection, setActiveSection }: IProps) {
   return (
-    <div className="hidden lg:flex flex-col my-4 gap-2">
-      {sections.map((section) => (
-        <a
-          key={section.id}
-          href={`#${section.id}`}
-          className={`flex flex-row gap-4 items-center w-max ${
-            activeSection === section.id ? "text-primary font-bold" : ""
-          }`}
-          onClick={() => setActiveSection(section.id)}
-        >
-          <div
-            className={`${
-              activeSection === section.id ? "w-16" : "w-4"
-            } bg-primary h-2 transition-all`}
-          ></div>
-          {section.title}
-        </a>
-      ))}
-    </div>
+    <nav aria-label="Page sections" className="my-4 hidden flex-col gap-2 lg:flex">
+      {sections.map((section) => {
+        const isActive = activeSection === section.id;
+        return (
+          <a
+            key={section.id}
+            href={`#${section.id}`}
+            className={`flex w-max flex-row items-center gap-4 ${
+              isActive ? "font-bold text-primary" : ""
+            }`}
+            aria-current={isActive ? "true" : undefined}
+            onClick={() => setActiveSection(section.id)}
+          >
+            <div
+              className={`${
+                isActive ? "w-16" : "w-4"
+              } h-2 bg-primary transition-all motion-reduce:transition-none`}
+            />
+            {section.title}
+          </a>
+        );
+      })}
+    </nav>
   );
 }
