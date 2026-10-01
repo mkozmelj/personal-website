@@ -17,6 +17,22 @@ export function Projects({
   const projects: IProject[] = useMemo(
     () => [
       {
+        imageUrl: "/medicentermali.webp",
+        title: "Medicenter Mali",
+        year: 2026,
+        tags: ["Next.js", "Vercel"],
+        link: "https://medicentermali.si",
+        summary: "Website for an ophthalmology center in Ljubljana and Medvode.",
+      },
+      {
+        imageUrl: "/anapajtler.webp",
+        title: "Dr. Ana Pajtler Rošar",
+        year: 2026,
+        tags: ["Next.js", "Vercel"],
+        link: "https://anapajtler.si",
+        summary: "Website for an ophthalmology practice in Ljubljana.",
+      },
+      {
         imageUrl: "/6racecraft.webp",
         title: "6RaceCraft",
         year: 2025,
