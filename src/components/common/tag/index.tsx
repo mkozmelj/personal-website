@@ -1,11 +1,23 @@
 interface IProps {
-  tag: string;
+  tags: string[];
+  /** Tighter tags that never wrap, used on the projects page */
+  compact?: boolean;
+  className?: string;
 }
 
-export function Tag({ tag }: IProps) {
+export function TagList({ tags, compact = false, className = "" }: IProps) {
   return (
-    <div className="inline-flex items-center rounded-xl px-2 py-1 text-xs bg-primary/20 font-medium text-primary ring-1 ring-inset ring-primary">
-      {tag}
-    </div>
+    <ul className={`flex flex-wrap gap-2 ${className}`}>
+      {tags.map((tag) => (
+        <li
+          key={tag}
+          className={`rounded-full border border-border-strong py-1 font-mono text-tag text-text-muted ${
+            compact ? "whitespace-nowrap px-2.5" : "px-3"
+          }`}
+        >
+          {tag}
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -1,10 +1,19 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ImageResponse } from "next/og";
+
+const FONTS_DIR = path.join(process.cwd(), "src/assets/fonts");
 
 export default async function handler(
   _req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const [bold, medium] = await Promise.all([
+    readFile(path.join(FONTS_DIR, "manrope-700.woff")),
+    readFile(path.join(FONTS_DIR, "manrope-500.woff")),
+  ]);
+
   const image = new ImageResponse(
     (
       <div
@@ -13,17 +22,20 @@ export default async function handler(
           width: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #101010 0%, #1a1a1a 100%)",
-          color: "#ffffff",
+          padding: "0 96px",
+          background: "#101010",
+          fontFamily: "Manrope",
         }}
       >
+        <div style={{ width: 64, height: 4, background: "#ff6a4d" }} />
         <div
           style={{
             fontSize: 72,
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            marginTop: 32,
+            color: "#f5f5f5",
           }}
         >
           Martin Kozmelj
@@ -31,18 +43,22 @@ export default async function handler(
         <div
           style={{
             fontSize: 32,
-            marginTop: 24,
-            color: "#adadad",
-            fontWeight: 400,
+            fontWeight: 500,
+            marginTop: 16,
+            color: "#a3a3a3",
           }}
         >
-          Senior Software Engineer
+          Senior software engineer at Sportradar
         </div>
       </div>
     ),
     {
       width: 1200,
       height: 630,
+      fonts: [
+        { name: "Manrope", data: bold, weight: 700, style: "normal" },
+        { name: "Manrope", data: medium, weight: 500, style: "normal" },
+      ],
     },
   );
 

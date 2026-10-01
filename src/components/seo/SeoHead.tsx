@@ -9,7 +9,7 @@ import {
 } from "@/site-config";
 
 export type SeoHeadProps = {
-  /** Page title without site name (e.g. "Experiences") */
+  /** Page title without site name (e.g. "Experience") */
   title?: string;
   description?: string;
   /** Path including leading slash, e.g. "/experiences" */
@@ -25,7 +25,7 @@ export function SeoHead({
 }: SeoHeadProps) {
   const fullTitle = title
     ? `${title} | ${SITE_NAME}`
-    : `${SITE_NAME} | ${SITE_TAGLINE}`;
+    : `${SITE_NAME} — ${SITE_TAGLINE}`;
   const canonicalPath = path === "/" ? "" : path;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   const ogImageUrl = `${SITE_URL}${OG_IMAGE_PATH}`;

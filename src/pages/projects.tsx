@@ -1,5 +1,6 @@
+import { PageSection } from "@/components/common/section";
 import { Layout } from "@/components/layout";
-import { Projects } from "@/components/projects";
+import { ProjectRows, ProjectsTable } from "@/components/projects";
 import { SeoHead } from "@/components/seo/SeoHead";
 
 export default function ProjectsPage() {
@@ -11,7 +12,13 @@ export default function ProjectsPage() {
         path="/projects"
       />
       <Layout>
-        <Projects pageHeading />
+        <PageSection
+          title="Projects"
+          lead="Websites, shops and web apps I've built for clinics, coaches, clubs and small businesses since 2019."
+        >
+          <ProjectsTable />
+          <ProjectRows />
+        </PageSection>
       </Layout>
     </>
   );

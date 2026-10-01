@@ -3,9 +3,10 @@ const { SITE_URL } = require("./site-url");
 // Update a page's date here when its content meaningfully changes.
 // Pages not listed get no <lastmod> rather than a misleading one.
 const LASTMOD = {
-  "/": "2026-03-28",
-  "/experiences": "2026-03-28",
-  "/projects": "2026-03-28",
+  "/": "2026-10-01",
+  "/about": "2026-10-01",
+  "/experiences": "2026-10-01",
+  "/projects": "2026-10-01",
 };
 
 /** @type {import('next-sitemap').IConfig} */
