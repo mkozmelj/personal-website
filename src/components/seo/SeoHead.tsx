@@ -3,6 +3,7 @@ import {
   DEFAULT_DESCRIPTION,
   OG_IMAGE_PATH,
   SITE_NAME,
+  SITE_TAGLINE,
   SITE_URL,
   TWITTER_HANDLE,
 } from "@/site-config";
@@ -22,7 +23,9 @@ export function SeoHead({
   path = "/",
   noIndex = false,
 }: SeoHeadProps) {
-  const fullTitle = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
+  const fullTitle = title
+    ? `${title} | ${SITE_NAME}`
+    : `${SITE_NAME} | ${SITE_TAGLINE}`;
   const canonicalPath = path === "/" ? "" : path;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   const ogImageUrl = `${SITE_URL}${OG_IMAGE_PATH}`;

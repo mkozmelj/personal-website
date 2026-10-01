@@ -1,0 +1,24 @@
+# Martin Kozmelj
+
+> Senior software engineer at Sportradar, based in Slovenia. Builds web apps with React, Next.js and TypeScript (Angular and Nest.js when needed), mentors teams and explores AI-assisted development. Open to part-time freelance work.
+
+## Pages
+
+- [Home](https://kozmelj.si/): Summary, recent experience and selected projects
+- [Experiences](https://kozmelj.si/experiences): Full work history since 2016 — Sportradar, freelance work, Norik Systems (team lead), Laboratory of Multimedia
+- [Projects](https://kozmelj.si/projects): Client websites and side projects, including 6RaceCraft, Tenis klub Trje 2000 and Estetika Verdnik
+
+## Key facts
+
+- Location: Slovenia
+- Role: Senior Software Engineer (Sportradar, since 2022)
+- Stack: React, Next.js, TypeScript, Remix, Angular, Nest.js, AWS, Tailwind CSS, WordPress
+- Availability: part-time freelance work
+- Interests: AI in professional workflows, team workflows, cycling, hiking, football, badminton
+
+## Contact
+
+- Email: martin@kozmelj.si
+- GitHub: https://github.com/mkozmelj
+- LinkedIn: https://www.linkedin.com/in/martinkozmelj/
+- X: https://x.com/martinkozmelj

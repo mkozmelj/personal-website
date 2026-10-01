@@ -7,7 +7,7 @@ export default function ExperiencesPage() {
     <>
       <SeoHead
         title="Experiences"
-        description="Work history and roles — senior frontend development, freelancing, and team leadership."
+        description="Work history of Martin Kozmelj, senior software engineer at Sportradar — React, Next.js and TypeScript, team leadership and mentoring."
         path="/experiences"
       />
       <Layout>

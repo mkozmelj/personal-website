@@ -34,7 +34,7 @@ export default function handler() {
             fontWeight: 400,
           }}
         >
-          Senior frontend developer
+          Senior Software Engineer
         </div>
       </div>
     ),

@@ -17,7 +17,7 @@ export function Experiences({
   const experiences: IExperience[] = useMemo(
     () => [
       {
-        position: "Senior Software Developer",
+        position: "Senior Software Engineer",
         company: "Sportradar",
         companyUrl: "https://sportradar.com/",
         start: 2022,
@@ -115,7 +115,7 @@ export function Experiences({
         start: 2016,
         end: 2020,
         summary:
-          "As a student working at Universitym I contributed to the development of an e-learning system during the challenging times of the COVID-19 pandemic. Focused on enhancing the platform's video capabilities, enabling university professors to seamlessly transition to online teaching.",
+          "As a student working at University I contributed to the development of an e-learning system during the challenging times of the COVID-19 pandemic. Focused on enhancing the platform's video capabilities, enabling university professors to seamlessly transition to online teaching.",
         tags: ["Meteor.js", "HTML5", "CSS", "JS", "MongoDB", "xAPI", "Linux"],
       },
     ],

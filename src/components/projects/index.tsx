@@ -10,7 +10,10 @@ type Props = {
   pageHeading?: boolean;
 };
 
-export function Projects({ showedProjects, pageHeading = false }: Readonly<Props>) {
+export function Projects({
+  showedProjects,
+  pageHeading = false,
+}: Readonly<Props>) {
   const projects: IProject[] = useMemo(
     () => [
       {
@@ -60,7 +63,7 @@ export function Projects({ showedProjects, pageHeading = false }: Readonly<Props
         title: "Tenis liga Trje",
         year: 2023,
         tags: ["React", "Google Spreadsheet API", "CI/CD"],
-        link: "https:/tenisligatrje.si",
+        link: "https://tenisligatrje.si",
         summary: "Webapp with results and table for local tenis leagues.",
         githubLink: "https://github.com/mkozmelj/Tenis-league-app",
       },

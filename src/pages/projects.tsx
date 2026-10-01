@@ -7,7 +7,7 @@ export default function ProjectsPage() {
     <>
       <SeoHead
         title="Projects"
-        description="Selected web projects — Next.js, WordPress, React, and more."
+        description="Selected projects by Martin Kozmelj — client websites and side projects built with React, Next.js and TypeScript, including AI-assisted builds."
         path="/projects"
       />
       <Layout>

@@ -1,4 +1,4 @@
-import { Personal } from "@/components/personal/ index";
+import { Personal } from "@/components/personal";
 import { Navbar } from "@/components/navbar";
 import { Social } from "@/components/social";
 import { Section } from "@/common/types";
@@ -37,7 +37,8 @@ export function Layout({ children }: Readonly<Props>) {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          intersectionRatiosRef.current[entry.target.id] = entry.intersectionRatio;
+          intersectionRatiosRef.current[entry.target.id] =
+            entry.intersectionRatio;
         }
         let bestId = "";
         let bestRatio = -1;
