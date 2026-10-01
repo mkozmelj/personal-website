@@ -2,19 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-  /* Visually hidden until keyboard focus */
-  .skip-to-content {
-    @apply absolute left-[-9999px] top-0 z-[100] rounded-md bg-primary px-4 py-2 text-white no-underline;
+@layer base {
+  html {
+    background: #101010;
+    color-scheme: dark;
   }
-  .skip-to-content:focus {
-    @apply fixed left-4 top-4 outline outline-2 outline-offset-2 outline-white;
+  body {
+    @apply bg-bg text-body text-text antialiased;
+  }
+  ::selection {
+    background: #ff6a4d;
+    color: #101010;
+  }
+  a,
+  button {
+    @apply outline-none;
+  }
+  /* :where() keeps specificity low so utilities (e.g. rounded-full) still win */
+  :where(a, button):focus-visible {
+    @apply rounded-sm shadow-focus;
   }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  /* Visually hidden until keyboard focus */
+  .skip-to-content {
+    @apply absolute left-[-9999px] top-0 z-[100] rounded-full bg-accent px-[18px] py-[9px] text-button text-on-accent;
+  }
+  .skip-to-content:focus {
+    @apply fixed left-4 top-4;
   }
 }
 
@@ -22,9 +38,9 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 1ms !important;
     scroll-behavior: auto !important;
   }
 }
