@@ -1,9 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-
-export default function handler() {
-  return new ImageResponse(
+export default async function handler(
+  _req: NextApiRequest,
+  res: NextApiResponse,
+) {
+  const image = new ImageResponse(
     (
       <div
         style={{
@@ -43,4 +45,11 @@ export default function handler() {
       height: 630,
     },
   );
+
+  image.headers.forEach((value, key) => res.setHeader(key, value));
+  res.setHeader(
+    "Cache-Control",
+    "public, max-age=86400, s-maxage=31536000, stale-while-revalidate=86400",
+  );
+  res.status(image.status).send(Buffer.from(await image.arrayBuffer()));
 }
