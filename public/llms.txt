@@ -4,8 +4,9 @@
 
 ## Pages
 
-- [Home](https://kozmelj.si/): Summary, recent experience and selected projects
-- [Experiences](https://kozmelj.si/experiences): Full work history since 2016 — Sportradar, freelance work, Norik Systems (team lead), Laboratory of Multimedia
+- [Home](https://kozmelj.si/): Short introduction, recent experience and selected projects
+- [About](https://kozmelj.si/about): Background, stack, the move into engineering management, and how to work with me
+- [Experience](https://kozmelj.si/experiences): Full work history since 2016 — Sportradar, freelance work, Norik Systems (team lead), Laboratory of Multimedia
 - [Projects](https://kozmelj.si/projects): Client websites and side projects, including 6RaceCraft, Tenis klub Trje 2000 and Estetika Verdnik
 
 ## Key facts
@@ -14,11 +15,12 @@
 - Role: Senior Software Engineer (Sportradar, since 2022)
 - Stack: React, Next.js, TypeScript, Remix, Angular, Nest.js, AWS, Tailwind CSS, WordPress
 - Availability: part-time freelance work
-- Interests: AI in professional workflows, team workflows, cycling, hiking, football, badminton
+- Interests: AI in professional workflows, team workflows, cycling, hiking, tennis, badminton
 
 ## Contact
 
 - Email: martin@kozmelj.si
 - GitHub: https://github.com/mkozmelj
 - LinkedIn: https://www.linkedin.com/in/martinkozmelj/
+- Instagram: https://instagram.com/martinkozmelj
 - X: https://x.com/martinkozmelj

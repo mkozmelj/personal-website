@@ -1,130 +1,121 @@
-import { IProject } from "@/common/types";
+import { NewTabHint } from "@/components/common/links";
+import { TagList } from "@/components/common/tag";
+import { ArrowUpRight } from "@/components/icons";
+import { projects } from "@/data/projects";
 import { Project } from "./project";
-import { Title } from "../common/title";
-import { useMemo } from "react";
-import Link from "next/link";
 
 type Props = {
-  showedProjects?: number;
-  /** When true, section title is an h1 (standalone /projects page) */
-  pageHeading?: boolean;
+  showedProjects: number;
 };
 
-export function Projects({
-  showedProjects,
-  pageHeading = false,
-}: Readonly<Props>) {
-  const projects: IProject[] = useMemo(
-    () => [
-      {
-        imageUrl: "/medicentermali.webp",
-        title: "Medicenter Mali",
-        year: 2026,
-        tags: ["Next.js", "Vercel"],
-        link: "https://medicentermali.si",
-        summary: "Website for an ophthalmology center in Ljubljana and Medvode.",
-      },
-      {
-        imageUrl: "/anapajtler.webp",
-        title: "Dr. Ana Pajtler Rošar",
-        year: 2026,
-        tags: ["Next.js", "Vercel"],
-        link: "https://anapajtler.si",
-        summary: "Website for an ophthalmology practice in Ljubljana.",
-      },
-      {
-        imageUrl: "/6racecraft.webp",
-        title: "6RaceCraft",
-        year: 2025,
-        tags: ["Next.js", "Resend", "Sanity", "Claude AI", "vibe coding"],
-        link: "https://6racecraft.com",
-        summary: "Website for a cycling coach with a blog.",
-      },
-      {
-        imageUrl: "/tk-trje.webp",
-        title: "Tenis klub Trje 2000",
-        year: 2025,
-        tags: ["Wordpress", "ContactForm", "UPN generation"],
-        link: "https://tk-trje.si",
-        summary: "Website for a local tennis club.",
-      },
-      {
-        imageUrl: "/estetika-verdnik.webp",
-        title: "Estetika Verdnik",
-        year: 2024,
-        tags: ["Next.js", "Vercel"],
-        link: "https://estetikaverdnik.si",
-        summary: "Business website for plastic surgeon.",
-      },
-      {
-        imageUrl: "/snezak.webp",
-        title: "Smučarsko društvo Snežak Celje",
-        year: 2024,
-        tags: ["Wordpress", "Elementor"],
-        link: "https://snezak-celje.com",
-        summary:
-          "Website for local skiing club of which I myself am a member. All informations about skiing school and other news for club members can be found on the website.",
-      },
-      {
-        imageUrl: "/druga-runda.png",
-        title: "Druga runda",
-        year: 2023,
-        tags: ["Wordpress", "Elementor"],
-        link: "https://drugarunda.si",
-        summary:
-          "Blog about cycling, not only, but mainly road cycling, be it asphalt or gravel roads.",
-      },
-      {
-        imageUrl: "/tenistrje.png",
-        title: "Tenis liga Trje",
-        year: 2023,
-        tags: ["React", "Google Spreadsheet API", "CI/CD"],
-        link: "https://tenisligatrje.si",
-        summary: "Webapp with results and table for local tenis leagues.",
-        githubLink: "https://github.com/mkozmelj/Tenis-league-app",
-      },
-      {
-        imageUrl: "/skz.png",
-        title: "Študentski klub Žalec",
-        year: 2020,
-        tags: ["Wordpress", "PDF Forms"],
-        link: "https://sk-zalec.org",
-        summary:
-          "Presentational website for local student organization. On the website members can fill out multipart signup form to join the organization.",
-      },
-      {
-        imageUrl: "/spiritbra.png",
-        title: "Spiritbra",
-        year: 2019,
-        tags: ["Wordpress", "Woocommerce"],
-        link: "https://spiritbra.si",
-        summary: "E-shop for woman apparel - sport bras and bags.",
-      },
-    ],
-    [],
-  );
-
-  const filteredProjects = useMemo(
-    () => (showedProjects ? projects.slice(0, showedProjects) : projects),
-    [projects, showedProjects],
-  );
-
+/** Home list: the latest projects as cards */
+export function Projects({ showedProjects }: Readonly<Props>) {
   return (
-    <section className="mt-2 flex flex-col" id="projects" aria-label="Projects">
-      <Title title="Projects" as={pageHeading ? "h1" : "h2"} />
-      <div className="px-4 lg:p-0">
-        {filteredProjects.map((project) => (
-          <Project project={project} key={project.title} />
+    <ol className="flex flex-col gap-10 lg:gap-2">
+      {projects.slice(0, showedProjects).map((project) => (
+        <Project project={project} key={project.title} />
+      ))}
+    </ol>
+  );
+}
+
+const TH =
+  "border-b border-border pb-3 text-left font-mono text-label uppercase text-text-subtle";
+const TD = "border-b border-border py-5 align-top";
+
+/** /projects on desktop (≥ lg) */
+export function ProjectsTable() {
+  return (
+    <table className="mt-4 hidden w-full border-collapse lg:table">
+      <thead>
+        <tr>
+          <th scope="col" className={`${TH} pr-4`}>
+            Year
+          </th>
+          <th scope="col" className={`${TH} pr-4`}>
+            Project
+          </th>
+          <th scope="col" className={`${TH} pr-4`}>
+            Built with
+          </th>
+          <th scope="col" className={TH}>
+            <span className="sr-only">Link</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {projects.map((project) => (
+          <tr key={project.title} className="group">
+            <td
+              className={`${TD} w-16 pr-4 font-mono text-[13px] leading-[26px] text-text-subtle`}
+            >
+              {project.year}
+            </td>
+            <td className={`${TD} pr-4`}>
+              <p className="text-base font-semibold leading-[26px] text-text transition-colors duration-fast group-hover:text-accent">
+                {project.title}
+              </p>
+              <p className="mt-1 text-body-sm text-text-muted">
+                {project.summary}
+              </p>
+            </td>
+            <td className={`${TD} pr-4`}>
+              <TagList tags={project.tags} compact />
+            </td>
+            <td className={`${TD} text-right`}>
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`Visit ${project.title} (opens in a new tab)`}
+                  className="group/visit -mr-3 -mt-[9px] inline-flex size-11 items-center justify-center rounded-full text-text-muted transition-colors duration-fast hover:bg-surface hover:text-accent-hover"
+                >
+                  <ArrowUpRight className="transition-transform duration-base ease-out group-hover/visit:-translate-y-0.5 group-hover/visit:translate-x-0.5" />
+                </a>
+              )}
+            </td>
+          </tr>
         ))}
-      </div>
-      {showedProjects && showedProjects < projects.length && (
-        <Link
-          className="bg-primary/50 hover:bg-primary/30 hover:cursor-pointer text-white font-bold py-2 px-4 rounded-xl m-auto mt-2"
-          href="/projects"
+      </tbody>
+    </table>
+  );
+}
+
+/** /projects on mobile (< lg) */
+export function ProjectRows() {
+  return (
+    <ul className="mt-2 lg:hidden">
+      {projects.map((project) => (
+        <li
+          key={project.title}
+          className="flex flex-col gap-1.5 border-b border-border py-5 first:border-t"
         >
-          Show more
-        </Link>
-      )}
-    </section>
+          <div className="flex items-baseline justify-between gap-3">
+            <h3 className="text-base font-semibold leading-6 text-text">
+              {project.link ? (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener"
+                  className="inline-flex items-center gap-1"
+                >
+                  {project.title}
+                  <ArrowUpRight size={14} className="shrink-0" />
+                  <NewTabHint />
+                </a>
+              ) : (
+                project.title
+              )}
+            </h3>
+            <span className="font-mono text-meta text-text-subtle">
+              {project.year}
+            </span>
+          </div>
+          <p className="text-body-sm text-text-muted">{project.summary}</p>
+          <TagList tags={project.tags} compact />
+        </li>
+      ))}
+    </ul>
   );
 }

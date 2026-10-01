@@ -1,3 +1,4 @@
+import type { NavItem } from "@/common/types";
 import { SITE_URL } from "../site-url";
 
 /** Canonical site URL (set NEXT_PUBLIC_SITE_URL in production, e.g. https://yoursite.com) */
@@ -8,7 +9,22 @@ export const SITE_NAME = "Martin Kozmelj";
 export const DEFAULT_DESCRIPTION =
   "Senior software engineer at Sportradar, based in Slovenia. I build with React, Next.js and TypeScript and write about working with teams and AI.";
 
-export const SITE_TAGLINE = "Senior Software Engineer";
+export const SITE_TAGLINE = "Senior software engineer";
+
+export const EMAIL = "martin@kozmelj.si";
+
+export const SOCIAL_URLS = {
+  github: "https://github.com/mkozmelj",
+  linkedin: "https://www.linkedin.com/in/martinkozmelj/",
+  instagram: "https://instagram.com/martinkozmelj",
+  x: "https://x.com/martinkozmelj",
+} as const;
+
+export const NAV_ITEMS: NavItem[] = [
+  { id: "about", label: "About", href: "/about" },
+  { id: "experience", label: "Experience", href: "/experiences" },
+  { id: "projects", label: "Projects", href: "/projects" },
+];
 
 export const OG_IMAGE_PATH = "/api/og";
 
@@ -29,7 +45,7 @@ export const PERSON_JSON_LD = {
       jobTitle: "Senior Software Engineer",
       description: DEFAULT_DESCRIPTION,
       image: `${SITE_URL}/portret-lighting.webp`,
-      email: "mailto:martin@kozmelj.si",
+      email: `mailto:${EMAIL}`,
       url: SITE_URL,
       mainEntityOfPage: { "@id": `${SITE_URL}/#profile` },
       worksFor: {
@@ -68,12 +84,7 @@ export const PERSON_JSON_LD = {
         "Scrum",
         "AI-assisted development",
       ],
-      sameAs: [
-        "https://github.com/mkozmelj",
-        "https://www.linkedin.com/in/martinkozmelj/",
-        "https://instagram.com/martinkozmelj",
-        "https://x.com/martinkozmelj",
-      ],
+      sameAs: Object.values(SOCIAL_URLS),
     },
     {
       "@type": "WebSite",
@@ -88,7 +99,7 @@ export const PERSON_JSON_LD = {
       "@type": "ProfilePage",
       "@id": `${SITE_URL}/#profile`,
       url: SITE_URL,
-      name: `${SITE_NAME} | ${SITE_TAGLINE}`,
+      name: `${SITE_NAME} — ${SITE_TAGLINE}`,
       isPartOf: { "@id": WEBSITE_ID },
       about: { "@id": PERSON_ID },
       mainEntity: { "@id": PERSON_ID },
