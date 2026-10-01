@@ -6,7 +6,8 @@ It's a small, fast, mostly static site that introduces who I am, what I've worke
 
 ## What's on the site
 
-- **Home** – a short introduction, summary and contact links.
+- **Home** – a short introduction, recent experience and projects, and contact links.
+- **About** – a longer look at my background and how I work.
 - **Experience** – my professional background.
 - **Projects** – selected personal and side projects.
 - **Dynamic Open Graph images** – generated on the fly at `/api/og` for link previews.
@@ -24,9 +25,11 @@ It's a small, fast, mostly static site that introduces who I am, what I've worke
 
 ```
 src/
-  pages/        Routes (home, experiences, projects) and the OG image API route
-  components/   UI sections: navbar, summary, experiences, projects, contact, SEO, etc.
+  pages/        Routes (home, about, experiences, projects) and the OG image API route
+  components/   Layout, sidebar, navigation, experiences, projects, contact, SEO, etc.
+  data/         Experience and project content
   common/       Shared types
+  assets/       Fonts for the OG image
   styles/       Global styles
   site-config.ts  Site metadata, SEO defaults and structured data (JSON-LD)
 public/         Static assets such as images and icons
