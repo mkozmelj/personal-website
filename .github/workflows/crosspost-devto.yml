@@ -29,6 +29,9 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version-file: .nvmrc
+          # Auto-caching reads packageManager and calls the runner's global
+          # Yarn 1, which refuses to run for a Yarn 4 project
+          package-manager-cache: false
 
       - name: Install dependencies
         # Yarn version comes from packageManager in package.json
