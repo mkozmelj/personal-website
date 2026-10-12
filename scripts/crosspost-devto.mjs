@@ -1,6 +1,8 @@
 // Cross-posts published blog posts to dev.to, with the canonical URL pointing
 // back to this site. Posts already on dev.to (matched by canonical URL,
 // drafts included) are skipped, so it is safe to run after every deploy.
+// Waits for each new post to be live on the site first, so it can run right
+// after a push while the deploy is still building.
 //
 //   node scripts/crosspost-devto.mjs [--dry-run] [--draft]
 //
@@ -15,6 +17,8 @@ const { SITE_URL } = siteUrl;
 const API = "https://dev.to/api";
 // dev.to allows 4 tags per article
 const MAX_TAGS = 4;
+const LIVE_TIMEOUT_MS = 10 * 60 * 1000;
+const LIVE_POLL_MS = 15 * 1000;
 
 const DRY_RUN = process.argv.includes("--dry-run");
 const DRAFT = process.argv.includes("--draft");
@@ -106,6 +110,24 @@ async function getCrosspostedUrls() {
   }
 }
 
+/** Resolves once the URL serves a 2xx, so dev.to never links to a 404 */
+async function waitUntilLive(url) {
+  const deadline = Date.now() + LIVE_TIMEOUT_MS;
+  for (;;) {
+    const response = await fetch(url, { method: "HEAD" }).catch(() => null);
+    if (response?.ok) return;
+    if (Date.now() >= deadline) {
+      throw new Error(
+        `${url} is not live after ${LIVE_TIMEOUT_MS / 60000} minutes (last status ${response?.status ?? "network error"})`,
+      );
+    }
+    console.log(
+      `Waiting for ${url} (status ${response?.status ?? "network error"})`,
+    );
+    await new Promise((resolve) => setTimeout(resolve, LIVE_POLL_MS));
+  }
+}
+
 async function main() {
   if (!API_KEY && !DRY_RUN) {
     throw new Error("DEVTO_API_KEY is not set");
@@ -121,6 +143,12 @@ async function main() {
   if (pending.length === 0) {
     console.log("Nothing to cross-post.");
     return;
+  }
+
+  if (!DRY_RUN) {
+    await Promise.all(
+      pending.map(({ canonicalUrl }) => waitUntilLive(canonicalUrl)),
+    );
   }
 
   for (const {

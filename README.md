@@ -59,7 +59,7 @@ Drafts appear in `yarn dev` only and are left out of production builds. Remove `
 
 ### Cross-posting to dev.to
 
-After each successful production deploy on Vercel, the [Cross-post to dev.to](.github/workflows/crosspost-devto.yml) workflow publishes any non-draft post that isn't on dev.to yet. It sets the canonical URL back to this site and matches on that URL, so each post goes out once. It needs a `DEVTO_API_KEY` repository secret (dev.to → Settings → Extensions).
+When a push to `main` changes `content/blog/`, the [Cross-post to dev.to](.github/workflows/crosspost-devto.yml) workflow waits for the new posts to be live on the site, then publishes any non-draft post that isn't on dev.to yet. It sets the canonical URL back to this site and matches on that URL, so each post goes out once. It needs a `DEVTO_API_KEY` repository secret (dev.to → Settings → Extensions).
 
 dev.to gets plain Markdown: `<Figure>` becomes an image with an italic caption, root-relative links become absolute, and tags are reduced to four lowercase alphanumeric ones. Any other MDX component fails the run until `scripts/crosspost-devto.mjs` knows how to convert it.
 

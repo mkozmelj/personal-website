@@ -1,9 +1,11 @@
 name: Cross-post to dev.to
 
-# Runs after Vercel reports a successful production deploy, so the canonical
-# URL is live before dev.to links to it
+# Runs on pushes that touch blog posts. Vercel doesn't report its deploys back
+# to GitHub, so the script waits for each new post to be live instead
 on:
-  deployment_status:
+  push:
+    branches: [main]
+    paths: ["content/blog/**"]
   workflow_dispatch:
     inputs:
       draft:
@@ -16,11 +18,9 @@ concurrency:
 
 jobs:
   crosspost:
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.deployment_status.state == 'success' &&
-      github.event.deployment.environment == 'Production')
     runs-on: ubuntu-latest
+    # The script gives up after 10 minutes of waiting for the deploy
+    timeout-minutes: 15
     permissions:
       contents: read
     steps:
