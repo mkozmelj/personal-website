@@ -11,7 +11,7 @@ export function TagList({ tags, compact = false, className = "" }: IProps) {
       {tags.map((tag) => (
         <li
           key={tag}
-          className={`rounded-full border border-border-strong py-1 font-mono text-tag text-text-muted ${
+          className={`rounded-full border border-border-strong py-1 text-tag text-text-muted ${
             compact ? "whitespace-nowrap px-2.5" : "px-3"
           }`}
         >

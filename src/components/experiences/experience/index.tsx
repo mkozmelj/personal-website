@@ -28,7 +28,7 @@ export function Experience({ experience, home = false }: IProps) {
           : ""
       }`}
     >
-      <p className="font-mono text-meta text-text-subtle lg:leading-[26px]">
+      <p className="text-meta text-text-subtle lg:leading-[26px]">
         {formatPeriod(experience)}
       </p>
       <div className="flex flex-col gap-2 lg:gap-3">

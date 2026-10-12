@@ -1,11 +1,23 @@
+import type { GetStaticProps } from "next";
+import type { IPostMeta } from "@/common/types";
+import { PostList } from "@/components/blog";
 import { Button, TextLink } from "@/components/common/links";
 import { HomeSection } from "@/components/common/section";
 import { Experiences } from "@/components/experiences";
 import { Layout } from "@/components/layout";
 import { Projects } from "@/components/projects";
 import { SeoHead } from "@/components/seo/SeoHead";
+import { getAllPosts } from "@/lib/posts";
 
-export default function Home() {
+const HOME_POSTS = 3;
+
+type Props = { posts: IPostMeta[] };
+
+export const getStaticProps: GetStaticProps<Props> = async () => ({
+  props: { posts: getAllPosts().slice(0, HOME_POSTS) },
+});
+
+export default function Home({ posts }: Readonly<Props>) {
   return (
     <>
       <SeoHead path="/" />
@@ -44,6 +56,13 @@ export default function Home() {
             <Button variant="secondary" href="/about" arrow>
               More about me
             </Button>
+          </div>
+        </HomeSection>
+
+        <HomeSection id="blog" label="Blog">
+          <PostList posts={posts} headingLevel="h3" />
+          <div>
+            <TextLink href="/blog">View all posts</TextLink>
           </div>
         </HomeSection>
 

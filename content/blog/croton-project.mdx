@@ -1,0 +1,58 @@
+---
+title: "More planning than coding: building a training agent in 6 hours"
+description: "I built Milo, my personal training agent, in 6 hours. This is the whole story behind it."
+date: "2026-10-12"
+tags: ["ai", "claude", "side-project", "agents"]
+draft: false
+---
+
+In the last few weeks, I've been working on my new side project with one major goal: to actually finish it so I can start writing this blog, which I've planned for over 2 years now. So here it is: I built Milo, my personal training agent, in 6 hours and this is the whole story behind it.
+
+## Why I built it
+
+The first reason for building the training agent is the Jesolo 70.3 in April next year. I signed up for it together with 4 of my colleagues from work, and I know from experience that I need some kind of goal for motivation to keep training regularly and in a structured way. In 2024, I already finished a sprint and an Olympic triathlon and I had a 3-month training plan that was made by a real triathlon coach. He prepared the weekly plan from Tuesday to Monday and then on Sunday I sent him a weekly recap: how I felt during the week and what my real-life plans were for the next week. He then built next week's plan based on the phase we were in, my previous week's status and plans from my personal or professional life. It was really important for me that the whole training process would not have a big impact on my life outside of it. This year, this became even more important, as my wife and I had a daughter in the meantime and my wife is also active herself, so we need to find some balance to have time for everything: our jobs, family time and training. We also do not want to stop living life, as social life with our friends is also very important to us. Thank God most of them are also active so it is easier to mix business with pleasure.
+
+The second reason, and perhaps even the bigger one, is curiosity about what AI can do, both in building this project and in using it. For building, I wanted to test how fast, reliable and easy it is to build a working project from scratch to production. For using it, I wanted to see how AI could help me prepare the best training plan that meets all my requirements.
+
+When I started brainstorming with Claude, I checked how many MCPs or other connectors there were for activities and workouts. Let's just say that there were loads of them. I knew beforehand that there are a lot of apps that prepare different kinds of training plans and triathlon does not lack in that department. But I wanted to actually mimic my training process from 2024 by replacing the human coach with a chatbot that would be available 24/7 for me. I wanted it to have as much context as possible: my background, my plans and goals and all the things that are relevant. But I don't fool myself: there are probably hundreds of apps that do the same thing. I am sure some of them even do it better than me.
+
+Before I started with the project, I had one last step: actually choosing the name for it, as I already have too many AI agent directories on my filesystem that haven't seen the light of day. With the help of AI (of course), I found inspiration in an ancient Greek legend. The project was named Croton Project, and the agent's name became Milo. You can read more about that [here](https://en.wikipedia.org/wiki/Milo_of_Croton).
+
+## How I built it
+
+I made sure that I really spent enough time brainstorming with Claude to get the implementation plan the way I wanted it. All the decisions about the stack, the architecture and the implementation process were made prior to the start of the implementation. I used Opus for brainstorming and planning. The output of that was a docs directory with a lot of MD documents that described the project, my goal, stack, guidelines, rules, and all other things that make sure future coding agents will be as effective as possible and try to prevent them from hallucinating too much.
+
+During the brainstorming, the stack was also selected. I did not want my knowledge or skills to be a limitation or the reason for a non-optimal stack, so I made sure that the AI selected the best stack based on pricing (number one, as this is a side project), usability, ease of use, MCP or agentic support, real-world usage and community.
+
+With AI we can build a whole codebase in a language we do not know in detail. As long as we know the basic concepts and understand the strengths and weaknesses, I think we are fine.
+
+The actual stack is shown in the diagram below, but in general we use Telegram for chat, Node.js/TypeScript on Railway for the backend, Neon for the database, Claude API for AI usage, a Strava webhook plus the Strava API for syncing the history on a specific tool call, MCP for Google Calendar, and the intervals.icu API. The latter was chosen because Garmin does not have an official MCP or a public API for individuals. I need it for my sleep score and training readiness. I was also able to store my weight and body composition from my Xiaomi smart scale in Intervals.icu. That required more work than I anticipated, so perhaps I will write a separate blog post about it someday.
+
+I also converted some literature and books into in-memory vector search (not a full RAG database) to be available for system prompts about core training principles. I would use more books, but most of them aren't available due to copyright.
+
+<Figure
+  src="/blog/croton-project/architecture.svg"
+  width="1250"
+  height="880"
+  wide
+  alt="The athlete talks to the bot through the Telegram API, which sends webhooks to a single Node.js process on Railway. Inside it, a Fastify server with the grammY bot hands messages to the orchestrator, confirm taps to the action executor and Strava events to background tasks; a scheduler runs the recap, planner and memory jobs. The orchestrator, background tasks and scheduler call Claude only through claude.ts, which talks to the Anthropic API. The orchestrator also uses literature search, which embeds queries with OpenAI. Background tasks fetch and rename activities on Strava, the action executor books plans in Google Calendar, and the scheduler syncs wellness from Intervals.icu. All state lives in Neon Postgres."
+  caption="Croton Project architecture."
+/>
+
+In the implementation plan, there was a phase 0 that included all the manual work that was required for this project: setting up all accounts, connecting services together, etc. The main goal of this phase was to set up an environment where manual work would not be needed anymore. GitHub Actions CI makes sure the Railway deployment and Neon migrations are updated, and the Railway MCP allowed me to check the status of Railway deployments and change the configuration directly from Claude Code. All those things allowed me to move quickly and do all the work just from Claude Code.
+
+In the main implementation phase, the agents just went step by step through the implementation plan, implemented features and then validated them according to the acceptance criteria from the plan. I used Sonnet for implementation. There were multiple agents working in parallel where this was possible. I mostly reviewed the code after each implementation step. For validation, there were some automated unit tests and then also some manual testing in Telegram.
+
+## How I use it
+
+The Sunday recap is still the most important part of the project. I tell the agent how I feel and what I have planned for my week outside of training (personal, days in the office, limitations, illness/injuries, vacation). It also has access to my calendar, so even if I forget to mention something, it knows about it. After each session, a Strava webhook fires and the agent sends me a message with a summary. I report back how I feel and if anything was out of the ordinary. Milo can propose changes to the plan, and I have to accept them in chat. During the week, I ask the agent different questions about the training phases, nutrition, injuries or any other stuff that comes to mind.
+
+## Cost
+
+To limit Claude API usage, I use Sonnet with a fallback to Haiku when the costs are close to the monthly budget limit. There are also some alerts in chat when those things happen. Time will tell, because I just started using it, but currently it looks like the costs for AI usage will be less than €5 per month. The project will also require $5 a month for the Railway server. A real coach would cost a lot more than €100 a month, and for sure wouldn't offer 24/7 support.
+
+## Where it stands
+
+So far, my experience is really similar to the one from 2024. But I am actually in a pre-base phase, as I need to increase my training load due to inactivity in the last few months. So I will see how Milo's workouts compare to the ones that I did in 2024. For sure, a real coach has more knowledge and real-life experience, but I think that with all the available data out there, an AI agent can be a hell of a coach.
+
+For sure, I will update all of you once I do some more serious training in the next few months.

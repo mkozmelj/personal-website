@@ -26,7 +26,7 @@ export function Project({ project }: IProps) {
         />
       ) : (
         <div
-          className={`${THUMB} flex items-center justify-center bg-surface-raised font-mono text-tag text-text-subtle`}
+          className={`${THUMB} flex items-center justify-center bg-surface-raised text-tag text-text-subtle`}
         >
           Screenshot
         </div>
@@ -49,7 +49,7 @@ export function Project({ project }: IProps) {
           ) : (
             project.title
           )}{" "}
-          <span className="font-mono text-[13px] font-normal leading-5 text-text-subtle lg:leading-[26px]">
+          <span className="text-[13px] font-normal leading-5 text-text-subtle lg:leading-[26px]">
             {project.year}
           </span>
         </h3>
