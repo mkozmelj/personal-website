@@ -1,3 +1,4 @@
+import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -14,13 +15,6 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-        mono: [
-          "var(--font-mono)",
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "monospace",
-        ],
       },
       fontSize: {
         display: [
@@ -63,8 +57,68 @@ const config: Config = {
       maxWidth: { container: "1200px", prose: "680px" },
       transitionDuration: { fast: "150ms", base: "250ms" },
       transitionTimingFunction: { out: "cubic-bezier(0.2, 0.8, 0.2, 1)" },
+      // Blog post bodies (`prose`), matched to the About page text
+      typography: ({ theme }: { theme: (path: string) => string }) => ({
+        DEFAULT: {
+          css: {
+            "--tw-prose-body": theme("colors.text.muted"),
+            "--tw-prose-headings": theme("colors.text.DEFAULT"),
+            "--tw-prose-links": theme("colors.text.DEFAULT"),
+            "--tw-prose-bold": theme("colors.text.DEFAULT"),
+            "--tw-prose-counters": theme("colors.text.subtle"),
+            "--tw-prose-bullets": theme("colors.border.strong"),
+            "--tw-prose-hr": theme("colors.border.DEFAULT"),
+            "--tw-prose-quotes": theme("colors.text.DEFAULT"),
+            "--tw-prose-quote-borders": theme("colors.accent.DEFAULT"),
+            "--tw-prose-captions": theme("colors.text.subtle"),
+            "--tw-prose-code": theme("colors.text.DEFAULT"),
+            "--tw-prose-pre-code": theme("colors.text.DEFAULT"),
+            "--tw-prose-pre-bg": theme("colors.surface.DEFAULT"),
+            "--tw-prose-th-borders": theme("colors.border.strong"),
+            "--tw-prose-td-borders": theme("colors.border.DEFAULT"),
+            maxWidth: theme("maxWidth.prose"),
+            fontSize: "16px",
+            lineHeight: "26px",
+            h2: {
+              fontSize: "24px",
+              lineHeight: "32px",
+              letterSpacing: "-0.01em",
+              fontWeight: "600",
+              marginTop: "2em",
+            },
+            h3: { fontSize: "18px", lineHeight: "26px", fontWeight: "600" },
+            strong: { fontWeight: "500" },
+            a: {
+              fontWeight: "inherit",
+              textDecoration: "none",
+              borderBottom: `1px solid ${theme("colors.border.strong")}`,
+              transitionProperty: "color, border-color",
+              transitionDuration: theme("transitionDuration.fast"),
+              "&:hover": {
+                color: theme("colors.accent.hover"),
+                borderColor: theme("colors.accent.hover"),
+              },
+            },
+            blockquote: { fontStyle: "normal", fontWeight: "400" },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:last-of-type::after": { content: "none" },
+            code: {
+              fontWeight: "400",
+              backgroundColor: theme("colors.surface.raised"),
+              borderRadius: "4px",
+              padding: "0.15em 0.35em",
+            },
+            "code::before": { content: "none" },
+            "code::after": { content: "none" },
+            pre: {
+              border: `1px solid ${theme("colors.border.DEFAULT")}`,
+              borderRadius: theme("borderRadius.md"),
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [typography],
 };
 export default config;

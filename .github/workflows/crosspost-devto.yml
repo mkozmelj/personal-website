@@ -1,0 +1,42 @@
+name: Cross-post to dev.to
+
+# Runs after Vercel reports a successful production deploy, so the canonical
+# URL is live before dev.to links to it
+on:
+  deployment_status:
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: Create the dev.to articles unpublished
+        type: boolean
+        default: false
+
+concurrency:
+  group: crosspost-devto
+
+jobs:
+  crosspost:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        # Yarn version comes from packageManager in package.json
+        run: corepack yarn install --immutable
+        env:
+          COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+
+      - name: Cross-post new posts
+        run: node scripts/crosspost-devto.mjs ${{ inputs.draft && '--draft' || '' }}
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}

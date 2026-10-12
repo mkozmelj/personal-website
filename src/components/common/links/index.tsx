@@ -101,15 +101,18 @@ export function InlineLink({
 }
 
 /** Desktop subpages only; MobileTopBar replaces it below lg */
-export function BackLink() {
+export function BackLink({
+  href = "/",
+  children = "Home",
+}: Partial<ILinkProps>) {
   return (
     <div className="hidden lg:block">
       <Link
-        href="/"
-        className="inline-flex min-h-11 items-center gap-2 font-mono text-label uppercase text-text-muted transition-colors duration-fast hover:text-accent-hover"
+        href={href}
+        className="inline-flex min-h-11 items-center gap-2 text-label uppercase text-text-muted transition-colors duration-fast hover:text-accent-hover"
       >
         <ArrowLeft />
-        Home
+        {children}
       </Link>
     </div>
   );

@@ -12,9 +12,11 @@ interface IProps {
 export function ProfileSidebar({ home = false }: IProps) {
   const Name = home ? "h1" : "p";
 
+  // ≥ lg: pinned, exactly one viewport tall; the portrait shrinks on short
+  // screens and the column scrolls on its own only as a last resort
   return (
     <header
-      className={`flex-col gap-4 lg:sticky lg:top-24 lg:flex lg:self-start ${
+      className={`flex-col gap-4 lg:sticky lg:top-0 lg:flex lg:h-screen lg:overflow-y-auto lg:py-24 ${
         home ? "flex" : "hidden"
       }`}
     >
@@ -25,7 +27,7 @@ export function ProfileSidebar({ home = false }: IProps) {
         height={299}
         priority
         sizes="(min-width: 1024px) 200px, 160px"
-        className="h-[239px] w-[160px] object-contain object-left-bottom lg:h-[200px] lg:w-[200px]"
+        className="h-[239px] w-[160px] object-contain object-left-bottom lg:h-[200px] lg:min-h-24 lg:w-[200px]"
       />
       <div className="flex flex-col gap-6 lg:gap-2">
         <div className="flex flex-col gap-2 lg:gap-2">

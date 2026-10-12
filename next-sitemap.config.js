@@ -1,12 +1,21 @@
+const { readPosts } = require("./blog-posts");
 const { SITE_URL } = require("./site-url");
 
-// Update a page's date here when its content meaningfully changes.
-// Pages not listed get no <lastmod> rather than a misleading one.
+const posts = readPosts();
+// Home and /blog list the newest posts, so a new post updates them too
+const latestPost = posts[0]?.date ?? "";
+const later = (a, b) => (a > b ? a : b);
+
+// Update a page's date here when its content meaningfully changes; post dates
+// come from frontmatter. Pages not listed get no <lastmod> rather than a
+// misleading one.
 const LASTMOD = {
-  "/": "2026-10-01",
+  "/": later("2026-10-01", latestPost),
   "/about": "2026-10-01",
   "/experiences": "2026-10-01",
   "/projects": "2026-10-01",
+  "/blog": latestPost || undefined,
+  ...Object.fromEntries(posts.map((post) => [`/blog/${post.slug}`, post.date])),
 };
 
 /** @type {import('next-sitemap').IConfig} */

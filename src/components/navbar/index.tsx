@@ -49,6 +49,11 @@ function useActiveSection(enabled: boolean) {
   return [activeSection, setActiveSection] as const;
 }
 
+/** Nested routes (e.g. /blog/[slug]) keep their section active */
+function isCurrentPage(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 interface IProps {
   /** Home links to in-page sections with scroll-spy; subpages link to routes */
   anchors?: boolean;
@@ -63,8 +68,10 @@ export function SideNav({ anchors = false }: IProps) {
     <nav aria-label="Main" className="hidden lg:block">
       <ul className="flex flex-col">
         {NAV_ITEMS.map(({ id, label, href }) => {
-          const isActive = anchors ? activeSection === id : pathname === href;
-          const className = `group flex min-h-10 items-center gap-4 font-mono text-label uppercase transition-colors duration-fast ${
+          const isActive = anchors
+            ? activeSection === id
+            : isCurrentPage(pathname, href);
+          const className = `group flex min-h-10 items-center gap-4 text-label uppercase transition-colors duration-fast ${
             isActive ? "text-text" : "text-text-subtle hover:text-text"
           }`;
           const bar = (
@@ -116,13 +123,13 @@ export function MobileTabs() {
       className="flex gap-6 border-b border-border lg:hidden"
     >
       {NAV_ITEMS.map(({ id, label, href }) => {
-        const isActive = pathname === href;
+        const isActive = isCurrentPage(pathname, href);
         return (
           <Link
             key={id}
             href={href}
             aria-current={isActive ? "page" : undefined}
-            className={`-mb-px flex min-h-11 items-center border-b-2 font-mono text-label uppercase ${
+            className={`-mb-px flex min-h-11 items-center border-b-2 text-label uppercase ${
               isActive
                 ? "border-accent text-text"
                 : "border-transparent text-text-subtle"
