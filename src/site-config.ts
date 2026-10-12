@@ -22,6 +22,7 @@ export const SOCIAL_URLS = {
 
 export const NAV_ITEMS: NavItem[] = [
   { id: "about", label: "About", href: "/about" },
+  { id: "blog", label: "Blog", href: "/blog" },
   { id: "experience", label: "Experience", href: "/experiences" },
   { id: "projects", label: "Projects", href: "/projects" },
 ];
@@ -30,8 +31,8 @@ export const OG_IMAGE_PATH = "/api/og";
 
 export const TWITTER_HANDLE = "@martinkozmelj";
 
-const PERSON_ID = `${SITE_URL}/#person`;
-const WEBSITE_ID = `${SITE_URL}/#website`;
+export const PERSON_ID = `${SITE_URL}/#person`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
 
 export const PERSON_JSON_LD = {
   "@context": "https://schema.org",

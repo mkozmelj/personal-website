@@ -4,11 +4,18 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ImageResponse } from "next/og";
 
 const FONTS_DIR = path.join(process.cwd(), "src/assets/fonts");
+const MAX_TITLE_LENGTH = 120;
 
+/** Site card, or a blog post card with ?title= */
 export default async function handler(
-  _req: NextApiRequest,
+  req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const title =
+    typeof req.query.title === "string"
+      ? req.query.title.trim().slice(0, MAX_TITLE_LENGTH)
+      : "";
+
   const [bold, medium] = await Promise.all([
     readFile(path.join(FONTS_DIR, "manrope-700.woff")),
     readFile(path.join(FONTS_DIR, "manrope-500.woff")),
@@ -31,14 +38,15 @@ export default async function handler(
         <div style={{ width: 64, height: 4, background: "#ff6a4d" }} />
         <div
           style={{
-            fontSize: 72,
+            fontSize: title ? 60 : 72,
             fontWeight: 700,
             letterSpacing: "-0.03em",
+            lineHeight: 1.15,
             marginTop: 32,
             color: "#f5f5f5",
           }}
         >
-          Martin Kozmelj
+          {title || "Martin Kozmelj"}
         </div>
         <div
           style={{
@@ -48,7 +56,7 @@ export default async function handler(
             color: "#a3a3a3",
           }}
         >
-          Senior software engineer at Sportradar
+          {title ? "Martin Kozmelj" : "Senior software engineer at Sportradar"}
         </div>
       </div>
     ),

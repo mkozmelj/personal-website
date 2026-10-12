@@ -23,6 +23,19 @@ export interface IProject {
   homeTags?: string[];
 }
 
+export interface IPostMeta {
+  /** File name in content/blog without .mdx */
+  slug: string;
+  title: string;
+  description: string;
+  /** Publish date, YYYY-MM-DD */
+  date: string;
+  tags: string[];
+  /** Listed and built in `next dev` only */
+  draft: boolean;
+  readingMinutes: number;
+}
+
 export interface NavItem {
   /** Section id on the home page */
   id: string;

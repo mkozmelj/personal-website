@@ -20,7 +20,7 @@ export function Projects({ showedProjects }: Readonly<Props>) {
 }
 
 const TH =
-  "border-b border-border pb-3 text-left font-mono text-label uppercase text-text-subtle";
+  "border-b border-border pb-3 text-left text-label uppercase text-text-subtle";
 const TD = "border-b border-border py-5 align-top";
 
 /** /projects on desktop (≥ lg) */
@@ -47,7 +47,7 @@ export function ProjectsTable() {
         {projects.map((project) => (
           <tr key={project.title} className="group">
             <td
-              className={`${TD} w-16 pr-4 font-mono text-[13px] leading-[26px] text-text-subtle`}
+              className={`${TD} w-16 pr-4 text-[13px] leading-[26px] text-text-subtle`}
             >
               {project.year}
             </td>
@@ -108,7 +108,7 @@ export function ProjectRows() {
                 project.title
               )}
             </h3>
-            <span className="font-mono text-meta text-text-subtle">
+            <span className="text-meta text-text-subtle">
               {project.year}
             </span>
           </div>

@@ -8,7 +8,7 @@ interface ISectionProps {
   children: ReactNode;
 }
 
-/** Home section with a mono label that sticks to the top on mobile */
+/** Home section with a label that sticks to the top on mobile */
 export function HomeSection({
   id,
   label,
@@ -23,7 +23,7 @@ export function HomeSection({
     >
       <h2
         id={`${id}-label`}
-        className="sticky top-0 z-10 -mx-4 bg-bg p-4 font-mono text-label uppercase text-text lg:static lg:mx-0 lg:p-0"
+        className="sticky top-0 z-10 -mx-4 bg-bg p-4 text-label uppercase text-text lg:static lg:mx-0 lg:p-0"
       >
         {label}
       </h2>
