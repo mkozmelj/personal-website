@@ -15,7 +15,7 @@ const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", {
 /** Date, reading time and draft marker */
 export function PostMeta({ post }: Readonly<{ post: IPostMeta }>) {
   return (
-    <p className="text-meta text-text-subtle">
+    <p className="text-meta tabular-nums text-text-subtle">
       <time dateTime={post.date}>
         {DATE_FORMAT.format(new Date(post.date))}
       </time>
@@ -50,7 +50,7 @@ export function PostList({
             className="group flex flex-col gap-1.5 py-5"
           >
             <PostMeta post={post} />
-            <Heading className="text-base font-semibold leading-6 text-text transition-colors duration-fast group-hover:text-accent">
+            <Heading className="text-h3 text-text transition-colors duration-fast group-hover:text-accent">
               {post.title}
             </Heading>
             <p className="max-w-prose text-body-sm text-text-muted">

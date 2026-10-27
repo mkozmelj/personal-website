@@ -37,6 +37,15 @@ export function ArrowUpRight(props: IProps) {
   );
 }
 
+export function ArrowRight(props: IProps) {
+  return (
+    <StrokeIcon {...props}>
+      <path d="M5 12h14" />
+      <path d="M12 5l7 7-7 7" />
+    </StrokeIcon>
+  );
+}
+
 export function ArrowLeft(props: IProps) {
   return (
     <StrokeIcon {...props}>

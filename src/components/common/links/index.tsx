@@ -1,10 +1,19 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { ArrowLeft, ArrowUpRight } from "@/components/icons";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "@/components/icons";
 
-/** Arrow that nudges up-right when its `group` ancestor is hovered */
+/**
+ * Arrows carry the destination: ↗ means "leaves this site, in a new tab",
+ * → means "another page here". Never mix them up.
+ */
+
+/** Nudges up-right when its `group` ancestor is hovered */
 export const ARROW_NUDGE =
   "transition-transform duration-base ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
+
+/** Same, for the → that stays on the baseline */
+const ARROW_NUDGE_RIGHT =
+  "transition-transform duration-base ease-out group-hover:translate-x-0.5";
 
 export function NewTabHint() {
   return <span className="sr-only"> (opens in a new tab)</span>;
@@ -13,9 +22,9 @@ export function NewTabHint() {
 interface IButtonProps {
   href: string;
   variant?: "primary" | "secondary";
-  /** Opens in a new tab */
+  /** Opens in a new tab; always marked with a trailing ↗ */
   external?: boolean;
-  /** Trailing ↗ arrow */
+  /** Trailing → on links to another page here */
   arrow?: boolean;
   children: ReactNode;
 }
@@ -37,7 +46,7 @@ export function Button({
   const content = (
     <>
       {children}
-      {arrow && <ArrowUpRight className={ARROW_NUDGE} />}
+      {arrow && !external && <ArrowRight className={ARROW_NUDGE_RIGHT} />}
     </>
   );
 
@@ -45,6 +54,7 @@ export function Button({
     return (
       <a href={href} target="_blank" rel="noopener" className={className}>
         {content}
+        <ArrowUpRight className={ARROW_NUDGE} />
         <NewTabHint />
       </a>
     );
@@ -69,7 +79,7 @@ interface ILinkProps {
   children: ReactNode;
 }
 
-/** Arrow link under lists */
+/** Arrow link under lists; internal routes only, so always → */
 export function TextLink({ href, children }: ILinkProps) {
   return (
     <Link
@@ -77,7 +87,7 @@ export function TextLink({ href, children }: ILinkProps) {
       className="group inline-flex min-h-11 items-center gap-1 text-button text-text transition-colors duration-fast hover:text-accent-hover"
     >
       {children}
-      <ArrowUpRight className={ARROW_NUDGE} />
+      <ArrowRight className={ARROW_NUDGE_RIGHT} />
     </Link>
   );
 }

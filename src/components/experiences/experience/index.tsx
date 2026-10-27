@@ -28,7 +28,7 @@ export function Experience({ experience, home = false }: IProps) {
           : ""
       }`}
     >
-      <p className="text-meta text-text-subtle lg:leading-[26px]">
+      <p className="text-meta tabular-nums text-text-subtle lg:leading-[26px]">
         {formatPeriod(experience)}
       </p>
       <div className="flex flex-col gap-2 lg:gap-3">
@@ -42,7 +42,7 @@ export function Experience({ experience, home = false }: IProps) {
             >
               {title}
               <ArrowUpRight
-                className={`ml-1 hidden align-[-2px] lg:inline-block ${ARROW_NUDGE}`}
+                className={`ml-1 inline-block align-[-2px] ${ARROW_NUDGE}`}
               />
               <NewTabHint />
             </a>

@@ -13,10 +13,13 @@ export function ProfileSidebar({ home = false }: IProps) {
   const Name = home ? "h1" : "p";
 
   // ≥ lg: pinned, exactly one viewport tall; the portrait shrinks on short
-  // screens and the column scrolls on its own only as a last resort
+  // screens and the column scrolls on its own only as a last resort.
+  // overflow-y also clips horizontally, so the column is padded back out to
+  // keep the social row's hover pill and focus ring (which hang 12px left)
+  // inside the clip box.
   return (
     <header
-      className={`flex-col gap-4 lg:sticky lg:top-0 lg:flex lg:h-screen lg:overflow-y-auto lg:py-24 ${
+      className={`flex-col gap-4 lg:sticky lg:top-0 lg:-ml-5 lg:flex lg:h-screen lg:overflow-y-auto lg:py-24 lg:pl-5 ${
         home ? "flex" : "hidden"
       }`}
     >
@@ -31,10 +34,11 @@ export function ProfileSidebar({ home = false }: IProps) {
       />
       <div className="flex flex-col gap-6 lg:gap-2">
         <div className="flex flex-col gap-2 lg:gap-2">
+          {/* On home this is already the current page, so it is not a link */}
           <Name className="text-display-sm text-text">
-            <Link href="/">Martin Kozmelj</Link>
+            {home ? "Martin Kozmelj" : <Link href="/">Martin Kozmelj</Link>}
           </Name>
-          <p className="text-lg font-medium leading-7 text-text lg:text-xl lg:leading-[30px]">
+          <p className="text-lg font-medium leading-7 text-text lg:text-lead">
             Senior software engineer at Sportradar
           </p>
         </div>

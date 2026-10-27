@@ -38,6 +38,10 @@ const config: Config = {
           "24px",
           { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "500" },
         ],
+        "statement-sm": [
+          "20px",
+          { lineHeight: "30px", letterSpacing: "-0.01em", fontWeight: "500" },
+        ],
         lead: ["20px", { lineHeight: "30px" }],
         body: ["16px", { lineHeight: "26px" }],
         "body-sm": ["14px", { lineHeight: "22px" }],

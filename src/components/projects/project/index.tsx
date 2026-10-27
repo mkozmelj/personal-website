@@ -42,14 +42,16 @@ export function Project({ project }: IProps) {
             >
               {project.title}
               <ArrowUpRight
-                className={`ml-1 hidden align-[-2px] lg:inline-block ${ARROW_NUDGE}`}
+                className={`ml-1 inline-block align-[-2px] ${ARROW_NUDGE}`}
               />
               <NewTabHint />
             </a>
           ) : (
             project.title
           )}{" "}
-          <span className="text-[13px] font-normal leading-5 text-text-subtle lg:leading-[26px]">
+          {/* lg line-height matches the h3 next to it so the years sit on
+              the same baseline down the column */}
+          <span className="text-meta font-normal tabular-nums text-text-subtle lg:leading-[26px]">
             {project.year}
           </span>
         </h3>

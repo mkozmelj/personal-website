@@ -7,7 +7,7 @@ export function Contact() {
       aria-label="Contact"
       className="flex flex-col gap-6 border-t border-border pt-8"
     >
-      <p className="max-w-[640px] text-xl font-medium leading-[30px] tracking-[-0.01em] text-text lg:text-statement">
+      <p className="max-w-[640px] text-statement-sm text-text lg:text-statement">
         If you&apos;ve read this far, we might work well together. Send me a few
         lines about what you&apos;re building, and I&apos;ll tell you honestly
         whether I&apos;m the right person for it.

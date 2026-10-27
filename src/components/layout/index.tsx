@@ -27,11 +27,13 @@ export function Layout({
   article = false,
 }: Readonly<Props>) {
   const mobileGap = home ? "gap-16" : "gap-10";
-  // With the sidebar, main carries the vertical padding so the sticky
-  // sidebar can span the full viewport height
+  // Below lg everything stacks into one column, so it is capped to a reading
+  // measure: without it the text runs the full width of a tablet.
   const columns = article
     ? "box-content max-w-prose lg:gap-16 lg:py-24"
-    : "max-w-container lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 lg:py-0";
+    : "box-content max-w-prose lg:box-border lg:max-w-container lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16 lg:py-0";
+  // With the sidebar, main carries the vertical padding so the sticky
+  // sidebar can span the full viewport height
   const mainPadding = article ? "" : "lg:py-24";
 
   return (
