@@ -98,7 +98,10 @@ function MdxLink({ href = "", children, ...props }: ComponentProps<"a">) {
 }
 
 interface IFigureProps {
+  /** The dark version, or the only one; dev.to always gets this file */
   src: string;
+  /** Light theme version of src */
+  lightSrc?: string;
   alt: string;
   /** Intrinsic size; strings because MDX blocks {expressions} */
   width: number | string;
@@ -108,36 +111,69 @@ interface IFigureProps {
   wide?: boolean;
 }
 
-/** Image with a caption and a link to the full-size file */
-function Figure({ src, alt, width, height, caption, wide }: IFigureProps) {
+/**
+ * Image with a caption and a link to the full-size file. With a lightSrc both
+ * versions are rendered and CSS shows the right one, because the theme is
+ * unknown during server rendering. Lazy loading skips the hidden image.
+ */
+function Figure({
+  src,
+  lightSrc,
+  alt,
+  width,
+  height,
+  caption,
+  wide,
+}: IFigureProps) {
+  const versions = lightSrc
+    ? [
+        { href: src, image: "light:hidden", link: "light:hidden" },
+        {
+          href: lightSrc,
+          image: "hidden light:block",
+          link: "hidden light:inline",
+        },
+      ]
+    : [{ href: src, image: "", link: "" }];
+
   return (
     <figure className={wide ? "xl:-mr-28" : undefined}>
-      <div className="not-prose relative">
-        <Image
-          src={src}
-          alt={alt}
-          width={Number(width)}
-          height={Number(height)}
-          sizes={wide ? "(min-width: 1024px) 1000px, 100vw" : "680px"}
-          className="h-auto w-full rounded-md border border-border"
-        />
-        {/* Click target over the image. It duplicates the caption link, so it
-            is hidden from assistive tech, which reads the image's alt instead */}
-        <a
-          href={src}
-          target="_blank"
-          rel="noopener"
-          tabIndex={-1}
-          aria-hidden="true"
-          className="absolute inset-0 cursor-zoom-in"
-        />
-      </div>
+      {versions.map(({ href, image }) => (
+        <div key={href} className={`not-prose relative ${image}`}>
+          <Image
+            src={href}
+            alt={alt}
+            width={Number(width)}
+            height={Number(height)}
+            sizes={wide ? "(min-width: 1024px) 1000px, 100vw" : "680px"}
+            className="h-auto w-full rounded-md border border-border"
+          />
+          {/* Click target over the image. It duplicates the caption link, so it
+              is hidden from assistive tech, which reads the image's alt instead */}
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener"
+            tabIndex={-1}
+            aria-hidden="true"
+            className="absolute inset-0 cursor-zoom-in"
+          />
+        </div>
+      ))}
       <figcaption>
         {caption && <>{caption} </>}
-        <a href={src} target="_blank" rel="noopener">
-          Open full size
-          <NewTabHint />
-        </a>
+        {versions.map(({ href, link }) => (
+          <a
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noopener"
+            className={link}
+          >
+            Open full size
+            <NewTabHint />
+          </a>
+        ))}
       </figcaption>
     </figure>
   );

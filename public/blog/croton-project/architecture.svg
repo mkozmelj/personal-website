@@ -10,7 +10,7 @@
   .l { font-size: 11.5px; }
   .edge { fill: none; stroke-width: 1.5; }
   .dashed { stroke-dasharray: 4 4; }
-  /* Dark only, in the site's colors (tailwind.config.ts) */
+  /* In the site's colors; scripts/draw-light-images.mjs derives the light version */
   .bg { fill: #171717; }
   .container { fill: #101010; stroke: #404040; }
   .cap, .s, .l { fill: #a3a3a3; }

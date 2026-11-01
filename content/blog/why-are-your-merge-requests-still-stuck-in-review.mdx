@@ -12,7 +12,13 @@ I keep hearing these phrases: "Code is cheap" and "Code does not matter anymore.
 
 The data from the industry says the same thing. Faros AI looked at about 10,000 developers in 2025: their teams merged 98% more MRs, but review time went up 91% and the MRs got 154% bigger. At Uber, the time to first review grew from 3 hours in 2024 to 9 hours in 2026. LinearB's 2026 benchmarks show that AI-assisted MRs are about 2.6x larger, and agentic AI MRs wait about 5x longer before someone starts the review. Most of these numbers come from companies that sell review or metrics tools, so take them with a grain of salt, but you can still get the idea from them.
 
-![Bar chart. Agentic AI merge requests wait 17.6 hours for the first review versus 3.4 hours for unassisted ones. AI-assisted changes are 408 lines versus 157 for unassisted. 75th percentile, LinearB 2026 Benchmarks.](/blog/why-are-your-merge-requests-still-stuck-in-review/01-ai-vs-unassisted.svg)
+<Figure
+  src="/blog/why-are-your-merge-requests-still-stuck-in-review/01-ai-vs-unassisted.svg"
+  lightSrc="/blog/why-are-your-merge-requests-still-stuck-in-review/01-ai-vs-unassisted.light.svg"
+  width="1360"
+  height="860"
+  alt="Bar chart. Agentic AI merge requests wait 17.6 hours for the first review versus 3.4 hours for unassisted ones. AI-assisted changes are 408 lines versus 157 for unassisted. 75th percentile, LinearB 2026 Benchmarks."
+/>
 
 Stuck merge requests or longer review times mean longer lead times, which means moving slower in a world where there are teams shipping multiple features while you are reading this article. The best teams have already overcome this issue by automating the whole pipeline, from code generation to deployment to production. But the automation itself is not enough. We need to truly trust the system because otherwise we add some manual steps to it, and that breaks the whole idea.
 
@@ -44,7 +50,13 @@ There is a lot of talk about AI software or development factories out there. The
 
 The code review usually triages MRs by importance, risk and blast radius. The smallest and easiest ones get merged without a human involved and are also released to production. The big ones, and the ones that are important for the business, need manual verification, but the AI tells the reviewer which parts of the code need to be manually checked, so the reviewer does not need to go through all the code but just through the most important parts.
 
-![Flow diagram. A merge request goes to AI triage. Small and easy changes are merged automatically with no human. Big, risky or crucial changes get a human review, with AI pointing out what to check. In the first months a human confirms the triage. Pipeline guardrails such as linters and tests run on everything.](/blog/why-are-your-merge-requests-still-stuck-in-review/02-triage-flow.svg)
+<Figure
+  src="/blog/why-are-your-merge-requests-still-stuck-in-review/02-triage-flow.svg"
+  lightSrc="/blog/why-are-your-merge-requests-still-stuck-in-review/02-triage-flow.light.svg"
+  width="1360"
+  height="940"
+  alt="Flow diagram. A merge request goes to AI triage. Small and easy changes are merged automatically with no human. Big, risky or crucial changes get a human review, with AI pointing out what to check. In the first months a human confirms the triage. Pipeline guardrails such as linters and tests run on everything."
+/>
 
 When you are building such a system, you need to start small and automate each step separately, validate the output and then move to the next one. This is important to gain confidence that the system is working and that you will not be slowing it down manually. Of course, the tools that are already in place, such as linters, tests and other validation metrics, are the base for this kind of automation.
 
@@ -54,7 +66,13 @@ This model can now be seen at multiple startups around the world, as they are us
 
 There is no such thing as 100% reliability. There are cases where you have too many possible scenarios to cover in the validation process. We recently had one such case, where we deployed a release that fixed the main flow but introduced a bug in one of the edge case situations. Because this is a product that can be configured with more than 40 options, we can't test all of the possible combinations. Even if those options were just on/off options, it would take millions of years of testing. It's just not economical.
 
-![Bar chart on a log scale. Testing every combination of on/off options with 10 tests per combination at 3 seconds per test takes 8.5 hours for 10 options, about 1 year for 20, about 1,000 years for 30 and about 1 million years for 40.](/blog/why-are-your-merge-requests-still-stuck-in-review/03-combinations.svg)
+<Figure
+  src="/blog/why-are-your-merge-requests-still-stuck-in-review/03-combinations.svg"
+  lightSrc="/blog/why-are-your-merge-requests-still-stuck-in-review/03-combinations.light.svg"
+  width="1360"
+  height="900"
+  alt="Bar chart on a log scale. Testing every combination of on/off options with 10 tests per combination at 3 seconds per test takes 8.5 hours for 10 options, about 1 year for 20, about 1,000 years for 30 and about 1 million years for 40."
+/>
 
 Bugs will happen even if we build the best and the most robust systems, because of the complexity of the products that we are building. It is most important that the cases with the highest business value are properly tested and validated, because there should be no room for error. But if some minor issue comes up with a new release, we should just take care to act quickly and fix it in almost no time. Observability tools help us find and fix things even before users notice or report them.
 
