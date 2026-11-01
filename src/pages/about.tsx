@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
+import { Marked } from "@/components/common/hand";
 import { InlineLink } from "@/components/common/links";
-import { PageSection } from "@/components/common/section";
 import { Layout } from "@/components/layout";
 import { SeoHead } from "@/components/seo/SeoHead";
 import { EMAIL } from "@/site-config";
@@ -10,7 +10,7 @@ const posts: { title: string; href: string }[] = [];
 
 function H2({ children }: { children: ReactNode }) {
   return (
-    <h2 className="mt-6 text-[22px] font-semibold leading-[30px] tracking-[-0.01em] text-text lg:mt-8 lg:text-h2">
+    <h2 className="mt-6 text-[22px] font-semibold leading-[30px] tracking-[-0.01em] text-text first:mt-0 lg:mt-8 lg:text-h2 lg:first:mt-0">
       {children}
     </h2>
   );
@@ -28,22 +28,27 @@ export default function AboutPage() {
         description="About Martin Kozmelj — a senior software engineer moving into engineering management, building with Next.js, TypeScript and React and writing about AI engineering and teams."
         path="/about"
       />
-      <Layout>
-        <PageSection
-          title="About me"
-          lead={
+      <Layout
+        hero={{
+          title: "About me",
+          note: "soft skills turned out to be the hard part",
+          lead: (
             <>
               I&apos;m a senior software engineer, and I&apos;m in the middle of
               a{" "}
-              <span className="text-text">
-                deliberate move into engineering management
-              </span>
+              <Marked>
+                <span className="text-text">
+                  deliberate move into engineering management
+                </span>
+              </Marked>
               . I build web products with Next.js, TypeScript and React, I use
               AI tools every day, and I write about what actually works, both in
               code and in teams.
             </>
-          }
-        >
+          ),
+        }}
+      >
+        <article>
           <div className="flex max-w-prose flex-col gap-4 text-body text-text-muted">
             <H2>How I got here</H2>
             <p>
@@ -122,7 +127,7 @@ export default function AboutPage() {
               work.
             </p>
           </div>
-        </PageSection>
+        </article>
       </Layout>
     </>
   );

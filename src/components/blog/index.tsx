@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps } from "react";
 import type { IPostMeta } from "@/common/types";
+import { Note } from "@/components/common/hand";
 import { NewTabHint } from "@/components/common/links";
 
 const DATE_FORMAT = new Intl.DateTimeFormat("en-GB", {
@@ -30,12 +31,15 @@ interface IPostListProps {
   posts: IPostMeta[];
   /** h3 when the list sits under a section h2, as on home */
   headingLevel?: "h2" | "h3";
+  /** Handwritten margin notes, by post slug */
+  notes?: Record<string, string>;
 }
 
 /** Post list for /blog and the home section */
 export function PostList({
   posts,
   headingLevel: Heading = "h2",
+  notes = {},
 }: Readonly<IPostListProps>) {
   if (posts.length === 0) {
     return <p className="text-body text-text-muted">No posts yet.</p>;
@@ -49,7 +53,12 @@ export function PostList({
             href={`/blog/${post.slug}`}
             className="group flex flex-col gap-1.5 py-5"
           >
-            <PostMeta post={post} />
+            <div className="flex items-baseline justify-between gap-4">
+              <PostMeta post={post} />
+              {notes[post.slug] && (
+                <Note className="-rotate-2">{notes[post.slug]}</Note>
+              )}
+            </div>
             <Heading className="text-h3 text-text transition-colors duration-fast group-hover:text-accent">
               {post.title}
             </Heading>
@@ -102,7 +111,7 @@ interface IFigureProps {
 /** Image with a caption and a link to the full-size file */
 function Figure({ src, alt, width, height, caption, wide }: IFigureProps) {
   return (
-    <figure className={wide ? "lg:-mx-40" : undefined}>
+    <figure className={wide ? "xl:-mr-28" : undefined}>
       <div className="not-prose relative">
         <Image
           src={src}

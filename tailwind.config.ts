@@ -1,22 +1,49 @@
 import typography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+
+/** Theme colors are RGB channels, set per theme in globals.css */
+const themed = (name: string) => `rgb(var(--c-${name}) / <alpha-value>)`;
 
 const config: Config = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        bg: "#101010",
-        surface: { DEFAULT: "#171717", raised: "#1f1f1f" },
-        border: { DEFAULT: "#262626", strong: "#404040" },
-        text: { DEFAULT: "#f5f5f5", muted: "#a3a3a3", subtle: "#858585" },
-        accent: { DEFAULT: "#ff6a4d", hover: "#ff8a73", subtle: "#ff6a4d1f" },
-        "on-accent": "#101010",
+        bg: themed("bg"),
+        surface: {
+          DEFAULT: themed("surface"),
+          raised: themed("surface-raised"),
+        },
+        border: { DEFAULT: themed("border"), strong: themed("border-strong") },
+        text: {
+          DEFAULT: themed("text"),
+          muted: themed("text-muted"),
+          subtle: themed("text-subtle"),
+        },
+        accent: {
+          DEFAULT: themed("accent"),
+          hover: themed("accent-hover"),
+          subtle: "rgb(var(--c-accent) / 0.12)",
+        },
+        "on-accent": themed("on-accent"),
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        hand: ["var(--font-hand)", "cursive"],
       },
       fontSize: {
+        // Sized so "Martin Kozmelj" always fits on one line: the full column on
+        // phones and tablets, the hero's text column from lg
+        hero: [
+          "clamp(36px, 13vw, 72px)",
+          { lineHeight: "1", letterSpacing: "-0.04em", fontWeight: "700" },
+        ],
+        "hero-lg": [
+          "clamp(58px, 5.6vw, 76px)",
+          { lineHeight: "1", letterSpacing: "-0.04em", fontWeight: "700" },
+        ],
+        note: ["20px", { lineHeight: "24px" }],
         display: [
           "56px",
           { lineHeight: "60px", letterSpacing: "-0.03em", fontWeight: "700" },
@@ -55,8 +82,9 @@ const config: Config = {
       },
       borderRadius: { sm: "6px", md: "12px" },
       boxShadow: {
-        focus: "0 0 0 2px #101010, 0 0 0 4px #ff6a4d",
-        "card-hover": "0 1px 0 0 #262626, 0 12px 32px -16px #000000",
+        focus: "0 0 0 2px rgb(var(--c-bg)), 0 0 0 4px rgb(var(--c-accent))",
+        "card-hover":
+          "0 1px 0 0 rgb(var(--c-border)), 0 12px 32px -16px #000000",
       },
       maxWidth: { container: "1200px", prose: "680px" },
       transitionDuration: { fast: "150ms", base: "250ms" },
@@ -123,6 +151,11 @@ const config: Config = {
       }),
     },
   },
-  plugins: [typography],
+  plugins: [
+    typography,
+    plugin(({ addVariant }) => {
+      addVariant("light", ':root[data-theme="light"] &');
+    }),
+  ],
 };
 export default config;
