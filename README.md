@@ -57,6 +57,22 @@ Write in Markdown. Start sections at `##`.
 
 Drafts appear in `yarn dev` only and are left out of production builds. Remove `draft` (or set it to `false`) to publish.
 
+### Images
+
+Keep a post's images in `public/blog/<slug>/`, drawn with the dark theme's colors. `node scripts/draw-light-images.mjs` then writes a `.light.svg` next to each SVG, and `<Figure>` shows the version that matches the theme:
+
+```mdx
+<Figure
+  src="/blog/<slug>/image.svg"
+  lightSrc="/blog/<slug>/image.light.svg"
+  width="1360"
+  height="860"
+  alt="What the image shows."
+/>
+```
+
+A plain Markdown image stays the same in both themes. For a PNG or other non-SVG image, make the light version by hand. dev.to always gets `src`.
+
 ### Cross-posting to dev.to
 
 When a push to `main` changes `content/blog/`, the [Cross-post to dev.to](.github/workflows/crosspost-devto.yml) workflow waits for the new posts to be live on the site, then publishes any non-draft post that isn't on dev.to yet. It sets the canonical URL back to this site and matches on that URL, so each post goes out once. It needs a `DEVTO_API_KEY` repository secret (dev.to → Settings → Extensions).
