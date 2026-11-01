@@ -33,10 +33,9 @@ I also converted some literature and books into in-memory vector search (not a f
 <Figure
   src="/blog/croton-project/architecture.svg"
   lightSrc="/blog/croton-project/architecture.light.svg"
-  width="1250"
-  height="880"
-  wide
-  alt="The athlete talks to the bot through the Telegram API, which sends webhooks to a single Node.js process on Railway. Inside it, a Fastify server with the grammY bot hands messages to the orchestrator, confirm taps to the action executor and Strava events to background tasks; a scheduler runs the recap, planner and memory jobs. The orchestrator, background tasks and scheduler call Claude only through claude.ts, which talks to the Anthropic API. The orchestrator also uses literature search, which embeds queries with OpenAI. Background tasks fetch and rename activities on Strava, the action executor books plans in Google Calendar, and the scheduler syncs wellness from Intervals.icu. All state lives in Neon Postgres."
+  width="1360"
+  height="930"
+  alt="Architecture diagram. Telegram, where the athlete talks to Milo, and a Strava webhook fired after each session wake Milo, as do cron jobs for the recap, planner and memory. Milo is one Node.js process on Railway, written in TypeScript with Fastify and grammY. It calls the Claude API with Sonnet and Haiku, the Strava API for activity history, Google Calendar through MCP to book the plan, Intervals.icu for sleep, readiness and weight, and OpenAI for literature embeddings. Neon Postgres sits under everything and holds all state."
   caption="Croton Project architecture."
 />
 
