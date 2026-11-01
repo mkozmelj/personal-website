@@ -32,7 +32,7 @@ export default function PostPage({ post, source }: Readonly<Props>) {
         path={`/blog/${post.slug}`}
         article={{ publishedTime: post.date, tags: post.tags }}
       />
-      <Layout article>
+      <Layout>
         <article className="flex flex-col gap-6">
           <BackLink href="/blog">Blog</BackLink>
           <header className="flex flex-col gap-3">

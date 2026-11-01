@@ -1,0 +1,80 @@
+---
+title: "Why are your merge requests still stuck in review?"
+date: "2026-11-01"
+description: "Code got faster. Code review didn't."
+pillar: ai-engineering
+draft: false
+devto: true
+devto_tags: ["ai", "codereview", "productivity", "devops"]
+---
+
+I keep hearing these phrases: "Code is cheap" and "Code does not matter anymore." In a way, I kind of agree with both, but what does it even mean? We write code significantly faster nowadays than we did just a year or two ago. But we aren't producing better products or delivering higher business value. We aren't even always delivering features sooner than we did previously. The biggest bottleneck is the review process. By that, I mean the whole flow of code review, testing and other validations that check everything is ready to be shipped to production.
+
+The data from the industry says the same thing. Faros AI looked at about 10,000 developers in 2025: their teams merged 98% more MRs, but review time went up 91% and the MRs got 154% bigger. At Uber, the time to first review grew from 3 hours in 2024 to 9 hours in 2026. LinearB's 2026 benchmarks show that AI-assisted MRs are about 2.6x larger, and agentic AI MRs wait about 5x longer before someone starts the review. Most of these numbers come from companies that sell review or metrics tools, so take them with a grain of salt, but you can still get the idea from them.
+
+![Bar chart. Agentic AI merge requests wait 17.6 hours for the first review versus 3.4 hours for unassisted ones. AI-assisted changes are 408 lines versus 157 for unassisted. 75th percentile, LinearB 2026 Benchmarks.](/blog/why-are-your-merge-requests-still-stuck-in-review/01-ai-vs-unassisted.svg)
+
+Stuck merge requests or longer review times mean longer lead times, which means moving slower in a world where there are teams shipping multiple features while you are reading this article. The best teams have already overcome this issue by automating the whole pipeline, from code generation to deployment to production. But the automation itself is not enough. We need to truly trust the system because otherwise we add some manual steps to it, and that breaks the whole idea.
+
+I find that the way we reviewed code in the past is the reason merge requests are still stuck.
+
+## The bottleneck isn't new
+
+Code reviews have been the bottleneck since they were introduced, and they are still the bottleneck today. In a 2016 Microsoft study, developers named getting feedback in time as their top code review challenge, and the median time to approval was 24 hours. At Meta in 2022, the median review took a few hours, but the slowest 25% took more than a day. LinearB's data shows that waiting for pickup and review are the most frequent sources of delivery delays. There are, of course, some exceptions. Google is one of them. A 2018 study of about 9 million reviewed changes found that the median review took under 4 hours, with first feedback in under an hour for small changes. Their changes were small (a median of about 24 lines), most had one reviewer, OWNERS files made it easy to find the right reviewer, and their own guidelines say one business day is the maximum time to respond to a review request. The study also names the trade-off: one reviewer means less rigor.
+
+## Why it is still stuck
+
+Nowadays, manually reviewing AI-generated code is even harder, and it takes even longer. The code is different no matter how many guidelines and coding principles you have in your documentation. The scope is usually bigger too.
+
+I remember reviewing my first few fully AI-generated merge requests at the end of last year. I was intimidated because I looked at them and had the feeling that this was something I could not keep up with. There were usually so many changes per review that I lost focus somewhere in the middle of the review almost every time. I was used to pulling the branch myself, seeing the changes, testing them myself locally and then commenting on the changes or approving the MR. Today, we are moving way too fast to still work that way.
+
+We have to build a system that will allow us to focus on the most important parts of the code that also have the biggest business value. Everything else needs to be automatically validated and reviewed. The system needs to be robust, so we truly trust it to deliver quality work. Otherwise, we end up putting some manual jobs in between just because we are afraid that something will break in production.
+
+## How I review now
+
+I realized that I got lazy with code reviewing, and more things slipped through that would not have before. I knew I had to change something, and the most logical thing was to add more automated steps to my workflow to support the review of the AI-generated code.
+
+It is no secret that I use Matt Pocock's skills for pretty much everything, and of course, he has a skill named code-review. It looks at security issues and coding principles, and validates the changes that were made against the specs. It is quick and so far pretty good at discovering issues. There still needs to be some triage, and you should not blindly fix those issues, as some of them can also be false positives. But you should think about adding a comment to mark those spots, as otherwise some agent might fix them sometime in the future.
+
+This skill, together with the whole testing process where we add integration and regression tests, allows us to be less careful ourselves and ship features faster. At this point, I should mention that it is not just code that is cheap. Tests are also cheap. And just as we have to check the code, we should also check the tests to make sure they are relevant. Mutation testing is really useful for this, and I think I will write about it sometime in the near future.
+
+## What the best teams do
+
+There is a lot of talk about AI software or development factories out there. The term means a system that automates everything from the idea to the release to production. It generates specs, implements the specs, reviews and validates/tests the code, and deploys it to production.
+
+The code review usually triages MRs by importance, risk and blast radius. The smallest and easiest ones get merged without a human involved and are also released to production. The big ones, and the ones that are important for the business, need manual verification, but the AI tells the reviewer which parts of the code need to be manually checked, so the reviewer does not need to go through all the code but just through the most important parts.
+
+![Flow diagram. A merge request goes to AI triage. Small and easy changes are merged automatically with no human. Big, risky or crucial changes get a human review, with AI pointing out what to check. In the first months a human confirms the triage. Pipeline guardrails such as linters and tests run on everything.](/blog/why-are-your-merge-requests-still-stuck-in-review/02-triage-flow.svg)
+
+When you are building such a system, you need to start small and automate each step separately, validate the output and then move to the next one. This is important to gain confidence that the system is working and that you will not be slowing it down manually. Of course, the tools that are already in place, such as linters, tests and other validation metrics, are the base for this kind of automation.
+
+This model can now be seen at multiple startups around the world, as they are usually the pioneers of all innovations. Airbyte sorts changes into low, medium and high risk, with AI classifying them from the ticket. Low-risk changes deploy without a review, and high-risk ones get a human review. They report 60–70% fewer unhealthy connectors with 30% fewer people. Uber's uReview decides how deep a review goes based on risk and complexity, and they plan to auto-approve some changes. At Agoda, humans own the spec and check the evidence instead of reading every line.
+
+## Bugs will still happen
+
+There is no such thing as 100% reliability. There are cases where you have too many possible scenarios to cover in the validation process. We recently had one such case, where we deployed a release that fixed the main flow but introduced a bug in one of the edge case situations. Because this is a product that can be configured with more than 40 options, we can't test all of the possible combinations. Even if those options were just on/off options, it would take millions of years of testing. It's just not economical.
+
+![Bar chart on a log scale. Testing every combination of on/off options with 10 tests per combination at 3 seconds per test takes 8.5 hours for 10 options, about 1 year for 20, about 1,000 years for 30 and about 1 million years for 40.](/blog/why-are-your-merge-requests-still-stuck-in-review/03-combinations.svg)
+
+Bugs will happen even if we build the best and the most robust systems, because of the complexity of the products that we are building. It is most important that the cases with the highest business value are properly tested and validated, because there should be no room for error. But if some minor issue comes up with a new release, we should just take care to act quickly and fix it in almost no time. Observability tools help us find and fix things even before users notice or report them.
+
+## The system needs to keep improving
+
+When the guardrails on the system miss something, we need to analyze it and see if it could have been avoided. If it could, we need to improve the system to prevent it in the future. We have to think about the system as a living thing that needs constant work and not as a finished project.
+
+The thing I learned from reviewing AI-generated code is that we should not be intimidated by the code or the process. We should embrace it, let the tools that we have review it and focus on the most important parts. Be confident in your system and keep improving it, because only then can we keep up with the pace we are moving at.
+
+## References
+
+1. Faros AI, research on AI and developer productivity (2025): [faros.ai/research](https://faros.ai/research)
+2. Uber, "Building uReview: Uber's multi-agent code review" (AI Engineer talk): [ai.engineer](https://ai.engineer/talks/EL123UNokkI-building-ureview-ubers-multi-agent-code-review)
+3. LinearB, "Engineering benchmarks 2026: data from 8.1M pull requests": [linearb.io](https://linearb.io/library/engineering-benchmarks-and-research)
+4. LinearB, "AI in software development: what the 2026 data shows": [linearb.io](https://linearb.io/library/ai-in-software-development)
+5. MacLeod, Greiler, Storey, Bird, Czerwonka, "Code Reviewing in the Trenches" (Microsoft, IEEE Software 2017): [PDF](https://www.michaelagreiler.com/wp-content/uploads/2019/03/Code-Reviewing-in-the-Trenches-Understanding-Challenges-Best-Practices-and-Tool-Needs.pdf)
+6. Meta Engineering, "Improving code review time at Meta" (2022): [engineering.fb.com](https://engineering.fb.com/2022/11/16/culture/meta-code-review-time-improving/)
+7. LinearB, engineering metrics and cycle time: [linearb.io](https://linearb.io/blog/engineering-metrics/)
+8. Sadowski et al., "Modern Code Review: A Case Study at Google" (ICSE 2018): [research.google](https://research.google/pubs/modern-code-review-a-case-study-at-google/)
+9. Google Engineering Practices, "Speed of Code Reviews": [google.github.io](https://google.github.io/eng-practices/review/reviewer/speed.html)
+10. Matt Pocock, skills: [github.com/mattpocock/skills](https://github.com/mattpocock/skills)
+11. Rootly, "How engineering leaders rethink code review in the AI era" (Airbyte example): [rootly.com](https://rootly.com/blog/how-engineering-leaders-rethink-code-review-in-the-ai-era)
+12. InfoQ, Agoda on the AI code bottleneck (2026): [infoq.com](https://www.infoq.com/news/2026/03/agoda-ai-code-bottleneck/)

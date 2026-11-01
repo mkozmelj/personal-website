@@ -1,3 +1,4 @@
+import { Marked } from "@/components/common/hand";
 import { Button } from "@/components/common/links";
 import { EMAIL, SOCIAL_URLS } from "@/site-config";
 
@@ -9,8 +10,9 @@ export function Contact() {
     >
       <p className="max-w-[640px] text-statement-sm text-text lg:text-statement">
         If you&apos;ve read this far, we might work well together. Send me a few
-        lines about what you&apos;re building, and I&apos;ll tell you honestly
-        whether I&apos;m the right person for it.
+        lines about what you&apos;re building, and I&apos;ll{" "}
+        <Marked>tell you honestly</Marked> whether I&apos;m the right person for
+        it.
       </p>
       <div className="flex flex-wrap gap-3">
         <Button href={`mailto:${EMAIL}`}>Email me</Button>

@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { NAV_ITEMS } from "@/site-config";
 
 /** Scroll-spy for the home page: id of the section most in view */
 function useActiveSection(enabled: boolean) {
-  const [activeSection, setActiveSection] = useState<string>(NAV_ITEMS[0].id);
+  // Nothing is active on landing: the hero is above every section
+  const [activeSection, setActiveSection] = useState("");
   const intersectionRatiosRef = useRef<Record<string, number>>({});
 
   useEffect(() => {
@@ -26,7 +28,16 @@ function useActiveSection(enabled: boolean) {
             bestId = id;
           }
         }
-        if (bestId) setActiveSection(bestId);
+        if (bestId) {
+          setActiveSection(bestId);
+          return;
+        }
+        // Between sections the last one stays active; above the first one the
+        // reader is back in the hero, so nothing is
+        const first = document.getElementById(NAV_ITEMS[0].id);
+        if (first && first.getBoundingClientRect().top > 0) {
+          setActiveSection("");
+        }
       },
       {
         root: null,
@@ -147,13 +158,16 @@ export function MobileTabs() {
 export function MobileTopBar() {
   return (
     <header className="flex flex-col gap-2 lg:hidden">
-      <div className="flex">
+      <div className="flex items-center justify-between">
         <Link
           href="/"
           className="-my-2 flex min-h-11 items-center text-xl font-bold leading-7 tracking-[-0.01em] text-text"
         >
           Martin Kozmelj
         </Link>
+        <div className="-my-2 -mr-3">
+          <ThemeToggle />
+        </div>
       </div>
       <MobileTabs />
     </header>

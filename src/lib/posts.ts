@@ -38,7 +38,7 @@ export function getAllPosts(): IPostMeta[] {
 }
 
 const PRETTY_CODE_OPTIONS: Options = {
-  theme: "github-dark-default",
+  theme: { dark: "github-dark-default", light: "github-light-default" },
   // Code blocks use the prose pre background instead of the theme's
   keepBackground: false,
 };

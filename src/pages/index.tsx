@@ -10,6 +10,7 @@ import { SeoHead } from "@/components/seo/SeoHead";
 import { getAllPosts } from "@/lib/posts";
 
 const HOME_POSTS = 3;
+const POST_NOTES = { "croton-project": "built in 6 hours" };
 
 type Props = { posts: IPostMeta[] };
 
@@ -60,7 +61,7 @@ export default function Home({ posts }: Readonly<Props>) {
         </HomeSection>
 
         <HomeSection id="blog" label="Blog">
-          <PostList posts={posts} headingLevel="h3" />
+          <PostList posts={posts} headingLevel="h3" notes={POST_NOTES} />
           <div>
             <TextLink href="/blog">View all posts</TextLink>
           </div>

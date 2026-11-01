@@ -13,6 +13,9 @@ export const SITE_TAGLINE = "Senior software engineer";
 
 export const EMAIL = "martin@kozmelj.si";
 
+/** Browser chrome color per theme; matches --c-bg in globals.css */
+export const THEME_COLORS = { dark: "#101010", light: "#f7f5f0" } as const;
+
 export const SOCIAL_URLS = {
   github: "https://github.com/mkozmelj",
   linkedin: "https://www.linkedin.com/in/martinkozmelj/",
