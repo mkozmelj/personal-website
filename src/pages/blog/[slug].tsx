@@ -6,6 +6,7 @@ import { BackLink } from "@/components/common/links";
 import { TagList } from "@/components/common/tag";
 import { Layout } from "@/components/layout";
 import { SeoHead } from "@/components/seo/SeoHead";
+import { useArticleRead } from "@/lib/analytics";
 import { getAllPosts, getPost } from "@/lib/posts";
 
 type Props = { post: IPostMeta; source: MDXRemoteSerializeResult };
@@ -24,6 +25,8 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 };
 
 export default function PostPage({ post, source }: Readonly<Props>) {
+  const contentRef = useArticleRead(post);
+
   return (
     <>
       <SeoHead
@@ -39,7 +42,7 @@ export default function PostPage({ post, source }: Readonly<Props>) {
             <h1 className="text-h1 text-text">{post.title}</h1>
             <PostMeta post={post} />
           </header>
-          <div className="prose">
+          <div ref={contentRef} className="prose">
             <MDXRemote {...source} components={MDX_COMPONENTS} />
           </div>
           {post.tags.length > 0 && <TagList tags={post.tags} />}
