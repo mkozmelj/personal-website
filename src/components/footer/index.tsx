@@ -20,7 +20,7 @@ export function Footer() {
         <InlineLink href="https://brittanychiang.com" external>
           Brittany Chiang
         </InlineLink>
-        .
+        . Read the <InlineLink href="/privacy">privacy note</InlineLink>.
       </p>
     </footer>
   );
