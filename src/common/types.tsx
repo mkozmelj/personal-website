@@ -33,6 +33,8 @@ export interface IPostMeta {
   tags: string[];
   /** Listed and built in `next dev` only */
   draft: boolean;
+  /** Link preview image, root-relative (1200 x 630) */
+  image?: string;
   readingMinutes: number;
 }
 

@@ -17,6 +17,8 @@ export type SeoHeadProps = {
   /** Path including leading slash, e.g. "/experiences" */
   path?: string;
   noIndex?: boolean;
+  /** Root-relative link preview image (1200 x 630), instead of the generated one */
+  image?: string;
   /** Marks the page as a blog post: article metadata, BlogPosting JSON-LD
       and an OG image with the title */
   article?: {
@@ -31,6 +33,7 @@ export function SeoHead({
   description = DEFAULT_DESCRIPTION,
   path = "/",
   noIndex = false,
+  image,
   article,
 }: SeoHeadProps) {
   const fullTitle = title
@@ -38,8 +41,9 @@ export function SeoHead({
     : `${SITE_NAME} — ${SITE_TAGLINE}`;
   const canonicalPath = path === "/" ? "" : path;
   const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-  const ogImageUrl =
-    article && title
+  const ogImageUrl = image
+    ? `${SITE_URL}${image}`
+    : article && title
       ? `${SITE_URL}${OG_IMAGE_PATH}?title=${encodeURIComponent(title)}`
       : `${SITE_URL}${OG_IMAGE_PATH}`;
   // Shares show the post title alone; the site name is in og:site_name

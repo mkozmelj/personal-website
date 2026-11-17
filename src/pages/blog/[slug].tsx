@@ -33,6 +33,7 @@ export default function PostPage({ post, source }: Readonly<Props>) {
         title={post.title}
         description={post.description}
         path={`/blog/${post.slug}`}
+        image={post.image}
         article={{ publishedTime: post.date, tags: post.tags }}
       />
       <Layout>

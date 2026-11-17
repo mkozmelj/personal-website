@@ -20,6 +20,7 @@ const CODE_PATTERN =
  * @property {string} date Publish date, YYYY-MM-DD
  * @property {string[]} tags
  * @property {boolean} draft
+ * @property {string} [image] Link preview image, root-relative path in public/
  * @property {string} content MDX body without frontmatter
  */
 
@@ -45,6 +46,17 @@ function toIsoDate(value, file) {
   return iso;
 }
 
+function requireImage(value, file) {
+  const url = requireString(value, "image", file);
+  if (!isRootRelative(url)) {
+    throw new Error(`${file}: frontmatter "image" must start with "/"`);
+  }
+  if (!fs.existsSync(path.join(process.cwd(), "public", url))) {
+    throw new Error(`${file}: frontmatter "image" ${url} is not in public/`);
+  }
+  return url;
+}
+
 function readFile(slug) {
   const { data, content } = matter(
     fs.readFileSync(path.join(POSTS_DIR, `${slug}.mdx`), "utf8"),
@@ -62,6 +74,8 @@ function validate({ slug, data, content }) {
     date: toIsoDate(data.date, file),
     tags: Array.isArray(data.tags) ? data.tags.map(String) : [],
     draft: data.draft === true,
+    // Left out when absent: getStaticProps can't serialize undefined
+    ...(data.image !== undefined && { image: requireImage(data.image, file) }),
     content,
   };
 }

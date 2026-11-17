@@ -55,6 +55,8 @@ draft: true
 Write in Markdown. Start sections at `##`.
 ```
 
+Link previews show an image generated from the title. To use your own, add `image: /blog/<slug>/cover-og.png` (1200 × 630, in `public/`). The build fails if the file is missing.
+
 Drafts appear in `yarn dev` only and are left out of production builds. Remove `draft` (or set it to `false`) to publish.
 
 ### Images
