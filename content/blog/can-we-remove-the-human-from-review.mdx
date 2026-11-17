@@ -13,7 +13,23 @@ In my most recent [blog post](https://kozmelj.si/blog/why-are-your-merge-request
 
 When talking about the removal of the human reviewer from the review process, there is always a mention of who will be responsible when things go wrong. Are the reviewers even responsible today? To some extent, yes, but the ownership of the work done still lies with the developer (not AI) who wrote this functionality. Who would you rather have reviewing your code: a tired developer on a Friday afternoon, a hungover developer on a Monday morning, or a fresh and always motivated agent that behaves (almost) identically every single time, no matter when or what situation we are in? With the layoffs across the industry and shifting to AI-first processes, there is less manual QA work being done, so here too we need to lean on AI to do this job. AI can often think of more edge cases, and we should make sure that it does by setting the rules or skills for agents to check for as many scenarios as possible that can happen in the real world.
 
+<Figure
+  src="/blog/can-we-remove-the-human-from-review/01-who-reviews-your-code.svg"
+  lightSrc="/blog/can-we-remove-the-human-from-review/01-who-reviews-your-code.light.svg"
+  width="1360"
+  height="760"
+  alt="Three sketched reviewers: a tired developer on a Friday afternoon, a hungover developer on a Monday morning, and a fresh and always motivated agent, which is highlighted because it reviews (almost) the same way every time."
+/>
+
 When we are talking about the review process, there is not only code review to talk about. The review process should include as many deterministic tools as possible to make sure that we do not introduce any part of the code that will make our whole codebase worse. There are tools to check for clean code and good practices for code quality. Security review makes sure we are not leaking any secrets or data, using any weak algorithms, or including libraries that have vulnerabilities that expose our software to attackers. We also need to make sure that our software checks all the boxes in the accessibility and UX reviews. Performance checks make sure we are not making the bundle bigger or the load times and Core Web Vitals worse. Visual regression tests make sure the UI did not change where we did not want it to. Spec conformance checks that the code does what the specification asked for. License checks make sure we are not including libraries we are not allowed to use. After the deploy, monitoring and alerting tell us when something goes wrong, because a rollback only helps if someone notices the problem.
+
+<Figure
+  src="/blog/can-we-remove-the-human-from-review/02-review-is-more-than-code-review.svg"
+  lightSrc="/blog/can-we-remove-the-human-from-review/02-review-is-more-than-code-review.light.svg"
+  width="1360"
+  height="948"
+  alt="The review process includes code quality, security, accessibility, UX, performance, visual regression, spec conformance and licenses, with AI code review as just one part. After the deploy, monitoring and alerting take over."
+/>
 
 LLMs are non-deterministic, so an AI reviewer can have different findings if you run it over the same code multiple times. Rules and guidelines make it behave almost identically. The development team needs to make sure that they write rules for the AI review in the most deterministic way to have the best possible outcome from the AI reviewer.
 
@@ -24,5 +40,13 @@ In my work, we are automating a lot of steps in our software development cycles,
 In those automatic workflows, such as software factories, the most important part is the starting point. The specification or list of requirements is the main thing that a human provides, and here too, I think we need to use AI to help us with that. A good practice is the [wayfinder skill](https://www.aihero.dev/skills-wayfinder) from AI guru [Matt Pocock](https://www.aihero.dev/). It runs through a series of questions to ensure that every open question has been thought about. You can think of it as an extensive brainstorming session with an LLM agent. I have been including Matt's skills in my everyday work for a few months now, and I have to say it has made the transition to using AI or agentic workflows a lot easier.
 
 All of those steps need to be introduced gradually. A complete refactor of the pipeline is maybe not a good idea because it is harder to detect a defect if multiple changes are made. Each step needs to be improved, tested, and validated to make sure that we have done things right. Before moving on to the next step, multiple MRs have to be successful (either passing or failing, depending on the desired outcome). We can start with 5 and then increase it if we see it is not enough. A step is stable when there have been no defects and no flaky or broken jobs in the pipeline. If something is caught, the pipeline needs to fail. A successful pipeline with examples of bad code is a failure. There should also be an order of priorities in which those steps are improved and automated. Automatic deployment is a must and the number one priority. So is a rollback in case of any issues or failures. Linters and tests are covered in most projects, as they were automated first, and deployment came later. But nowadays, deployment is the first thing to fix or automate. Then come code quality control and testing. Then the security review, then the UX review. Removing the human from the review is just the last step. We are moving in that direction.
+
+<Figure
+  src="/blog/can-we-remove-the-human-from-review/03-removing-the-human-is-the-last-step.svg"
+  lightSrc="/blog/can-we-remove-the-human-from-review/03-removing-the-human-is-the-last-step.light.svg"
+  width="1360"
+  height="940"
+  alt="A staircase of five steps, in order of priority: automatic deploy and rollback, code quality and testing, security review, UX review, and at the top, remove the human from review."
+/>
 
 It will be a long and troublesome path, but the human can be removed from the review, and in the future this will be a must.
